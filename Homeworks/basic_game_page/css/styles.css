@@ -1,0 +1,18 @@
+/* Style rules for Speakeasy webpage*/
+body{
+    font-family:'Courier New', Courier, monospace
+}
+
+header{
+    text-align: left;
+}
+header img{
+    display: block;
+    margin: auto;
+    width: 50%;
+}
+
+h1{
+    text-align: center;
+    word-spacing: 1em;
+}
