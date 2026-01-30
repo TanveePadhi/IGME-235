@@ -1,0 +1,30 @@
+/*CSS for dig dug page*/
+
+body{
+    background-color: lightblue;
+    font-family: sans-serif,Arial, Helvetica;
+}
+h1 { 
+    color:red;
+    border-bottom: 1px solid blue;
+    }
+blockquote { 
+    background-color: lightgray;
+    padding: 1rem;
+    }
+
+h2{
+    color: blueviolet;
+}
+p{
+    text-indent: 2em;
+}
+
+img.side {
+    float:right; margin: 0 20px;
+    margin-bottom: 50px;
+}
+
+h1,h2,h3{
+    font-family:DM+Sans;
+}
