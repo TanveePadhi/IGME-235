@@ -1,0 +1,65 @@
+/*Css style sheet for 235 page*/
+
+body{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: #fefedf;
+}
+
+header,#links{
+    background-color: #dabce7;
+}
+img{
+    width: 250px;
+    float: right;
+    padding: 10px;
+}
+
+#empty{
+clear: both;
+}
+
+h1{
+    color:#4b4453;
+}
+
+h1{
+    font-size: 2.5em;
+    letter-spacing: 3px;
+}
+
+h2{
+    color:#845ec2;
+    font-size: 1.75em;
+    letter-spacing: 3px;
+    text-decoration: underline;
+}
+
+ul{
+    list-style: none;
+}
+
+p{
+    text-indent: 2em;
+    letter-spacing: 1px;
+}
+
+/*love hate a*/
+/* unvisited link */
+a:link {
+  color: #fff6ff;
+}
+
+/* visited link */
+a:visited {
+  color: #4c078d;
+}
+
+/* mouse over link */
+a:hover {
+  color:rgb(255, 236, 210);
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
