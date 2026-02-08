@@ -2,8 +2,23 @@
 
 /*link to colour: https://coolors.co/palette/d9ed92-b5e48c-99d98c-76c893-52b69a-34a0a4-168aad-1a759f-1e6091-184e77*/
 
-body{
+main{
+    border: 1px solid black;
+    margin: 0 auto;
+    width: 80vw;
+    padding: 2rem;
     background-color: #99D98C;
+}
+header, footer, section{
+    border: 1px solid black;
+    margin: 10px auto;
+    background-color: #99D98C;
+    padding:1rem
+}
+
+
+body{
+    background-color: #0a211e;
     font-family: sans-serif,Arial, Helvetica;
 }
 section#publishing,section#quote{
@@ -23,9 +38,9 @@ p{
 }
 
 img.side {
-    float:right; margin: 0 20px;
-    margin-bottom: 50px;
+   
 }
+
 
 h1,h2,h3{
     color: #1A759F;
@@ -35,14 +50,33 @@ a:link{
     color:#024137;
 }
 a:visited{
-    color:#D9ED92;
+    color:#ea6be6;
 }
 a:focus{
-
+    color:#e29e37;
 }
 a:hover{
-
+    color:#525dd2;
 }
 a:active{
+    color:#024137;
+}
 
+.digdugmain{
+    width:30vm;
+}
+
+.anotherpic{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+    width:50vw;
+}
+nav {
+    display:flex;
+    justify-content: center;
+}
+.svg-logo{
+    width:15vw;
+    float:right;
 }
