@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        
+        body{
+            background-color: purple;
+        }
+        /*desktop styles*/
+        .navigation{
+            display:flex;
+            justify-content:space-around;
+            
+        }
+        .navigation a{
+            flex: 0 1 40px;
+        }
+
+        .container{
+            background-color: lightcoral;
+            /*need width to use any of the margin*/
+            max-width: 600px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        img{
+            max-width:100%;
+            height:auto;
+        }
+
+        @media screen and (max-width:600px){
+            /*ORDER MATTERS*/
+            /*don't need to repeat parts just write what needs to be overriden*/
+            .navigation{
+                flex-direction: column;
+            }
+        }
+        /*mobile styles*/
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navigation">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Our Store</a>
+            <a href="#">FAQs</a>
+            <a href="#">Office Hours</a>
+        </nav>
+
+        <!--Responsive img (placehold.co)-->
+        <img src="https://placehold.co/600x400" alt="people in a room" class="hero">
+
+        <img src="https://placehold.co/400x300" alt="people in a room" class="hero2">
+
+        <p></p>
+
+    </div>
+</body>
+</html>
