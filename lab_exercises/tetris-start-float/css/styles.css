@@ -1,25 +1,35 @@
 /* Do everything in this file */
-h2,h3{
-    border-bottom: 1px solid red;
-}
-figure{
-    width:40%;
-    float:right;
-    margin:2em;
-}
+    h2,h3{
+        border-bottom: 1px solid red;
+    }
+    figure{
+        width:40%;
+        float:right;
+        margin:1em;
+    }
+    figure img{
+        width:100%;
+    }
+    h2{
+        clear: both;
+    }
 
-figure img{
-    width:100%;
-}
-
-
-.tet{
-    width:40%;
-}
-.tet img{
-    width:50%;
-    float:left;
-}
-h2{
-    clear: both;
-}
+    .tet{
+        width:40%;
+        float:left;
+        border: 2px solid green;
+    }
+    .tet img{
+        width:20%;
+    }
+    body{
+        position:relative;
+    }
+    footer{
+        clear: both;
+        position: fixed;
+        top:0px;
+        right: 0px;
+        z-index: -1000;
+        opacity: 50%;
+    }
