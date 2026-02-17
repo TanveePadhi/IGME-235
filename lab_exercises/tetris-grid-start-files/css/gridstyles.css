@@ -17,16 +17,28 @@ h1.game {
 
 ul.menu { 
     grid-area: menus;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    flex-wrap: wrap;
 }
 
 #introduction {
-     grid-area: intro; 
-
-     margin: 2rem;
+    grid-area: intro; 
+    margin: 2rem;
+    max-width: 100vw;
 }
 
 #tetgrid { 
-    grid-area: playground; }
+    grid-area: playground;
+
+    display: grid;
+    grid-template-columns: repeat(6, 100px);
+    grid-template-rows: repeat(6, 100px);
+}
 
 footer { 
     grid-area: footer; 
@@ -46,14 +58,6 @@ footer {
                         "footer" ;
 }
 
-ul.menu {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-
-    flex-wrap: wrap;
-}
 
 .menu a {
     display: block;
@@ -78,7 +82,7 @@ ul.menu {
 	background: red;
 	color: yellow;
     transform:scale(1.1);
-      background-color: 0.5s linear;
+    background-color: 0.5s linear;
 }
 
 ul.menu ul li {
@@ -100,44 +104,63 @@ ul.menu li:hover ul {
     padding-left:5px;
 }
 
-#tetgrid {
-    display: grid;
-    grid-template-columns: repeat(6, 100px);
-    grid-template-rows: repeat(6, 100px);
-}
 
-div.tet {
-    overflow: visible;
+#z {
+    grid-column: 6/span 4;
+    grid-row: 5/span 3;
+    transform-origin: 0 0;
+    transform: translateX(100px) rotate(90deg);
 }
-
-img {
-    transition-property: transform;
-    transition-duration: 2s;
-}
-
-img:hover {
-    transform: rotate(-90deg);
-}
-
 #o {
     grid-column: 1/3;
-    grid-row: 1/span 2;
+    grid-row: 3/span 2;
 }
 #i {
-    grid-column: 3/-1;
-    grid-row: span 1;
+    grid-column: 1/-1;
+    grid-row: 6/span 1;
 }
 
 #z img {
     transform-origin: 0 0;
     transform: translateX(205px) rotate(90deg);
-
 }
 
-#z {
-    grid-column: 2/span 2;
-    grid-row: 2/span 3;
+#l{
+    grid-column: 2;
+    grid-row: 6/-1;
+    transform-origin: 0 0;
+    transform: translateX(205px) rotate(180deg);
+    
 }
+#t{
+    grid-column: 3/span 3;
+    grid-row: 2/span 2;
+    transform-origin: 0 0;
+    transform: translateX(200px) rotate(90deg)
+}
+
+#s{
+    grid-column: 5/span 3;
+    grid-row: 3/span 2;
+    transform-origin: 0 0;
+    transform: translateX(200px) rotate(90deg)
+} 
+#j{
+    grid-column: 7/span 3;
+    grid-row: 4/-1;
+    transform-origin: 0 0;
+    transform: translateX(200px) rotate(90deg);
+}
+
+img:hover {
+    transform: rotate(90deg);
+}
+img {
+    transition-property: transform;
+    transition-duration: 2s;
+}
+
+
 
 @media screen and(min-width:850px) {
     #wrapper{
@@ -147,5 +170,6 @@ img:hover {
                         "menus menus"  
                         "playground playground"
                         "footer footer" ;
-}
+    
+            }
 }
