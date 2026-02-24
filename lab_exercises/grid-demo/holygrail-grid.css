@@ -59,7 +59,7 @@ article{
 
 aside{
 
-    grid:sidebar;
+    grid-area:sidebar;
 }
 
 footer{

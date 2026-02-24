@@ -1,0 +1,57 @@
+/*css for spec sheet*/
+
+/*adding colours to the sectiosn to differenciate them*/
+
+body{
+    background-color: rgb(175, 170, 170);
+}
+#sidebar{
+     background-color: rgb(172, 242, 242);
+     grid-area: sidebar;
+}
+
+#introduction{
+    background-color: rgb(131, 180, 131);
+    grid-area: introduction;
+}
+
+#content{
+    background-color: rgb(202, 131, 131);
+    grid-area: content;
+}
+
+#single-page{
+    display:grid;
+    height:100vh;
+
+    grid-template-columns: 2fr 10fr;
+
+    grid-template-areas: "sidebar introduction"
+                        " sidebar content"
+                        "sidebar content";
+}
+.graph{
+    grid-area:graph;
+}
+.image1{
+    grid-area: threed;
+}
+.image2{
+    grid-area:map;
+}
+.main-text{
+    grid-area: mtext;
+}
+.subtext{
+    grid-area: subtext;
+}
+
+#content{
+    display:grid;
+    height:auto;
+
+    grid-template-rows: 4fr 4fr 4fr;
+
+    grid-template-areas:"mtext mtext mtext ";
+    
+}
