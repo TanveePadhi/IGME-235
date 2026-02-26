@@ -1,0 +1,83 @@
+/* Page-wide styles can go here */
+body{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    max-width: 900px;
+}
+
+
+/* Navigation link states — define all five */
+nav a:link{
+    color:white;
+}
+nav a:visited{
+    color:lightblue;
+}
+nav a:focus{
+outline: 2px solid orange;
+}
+nav a:hover{
+    color:white;
+    text-decoration: underline;
+}
+nav a:active{
+    color: red;
+}
+
+/* Header styling */
+header {
+    color: white;
+    background-color: steelblue;
+    border: 2px solid darkgray;
+    padding: 20px;
+    text-align: center;
+}
+
+header nav{
+    font-size: 1.5em;
+}
+
+/* Footer styling */
+footer {
+    background-color: darkslategray;
+    color:white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+}
+.intro{
+            font-size: 1.3em;
+            font-style: italic;
+        }
+
+img{
+    width: 500px;
+}
+
+/* Feel free to add any additional CSS rules that you need */
+
+/* Book list styling using flexbox or grid */
+.book-list {
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.book {
+    height: 160px;
+    width: 180px;
+    padding: 5px;
+    margin: 10px;
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+.book h3 {
+    text-align: center;
+    color: darkslateblue
+}
+    .book p{
+        text-align: center;
+    }
