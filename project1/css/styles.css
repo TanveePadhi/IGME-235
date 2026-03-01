@@ -1,56 +1,128 @@
 /*css for spec sheet*/
 
 /*adding colours to the sectiosn to differenciate them*/
+*{
+    margin: 0;
+
+   outline: 1px solid red; 
+}
 
 body{
     background-color: rgb(175, 170, 170);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
 }
-#sidebar{
-     background-color: rgb(172, 242, 242);
-     grid-area: sidebar;
-}
+
 
 #introduction{
     background-color: rgb(131, 180, 131);
+    padding: 1em;
     grid-area: introduction;
+
+    display:flex;
+    flex-direction: column;
+}
+#introduction h1{
+    font-size: 4em;
+    text-decoration: underline;
+    text-underline-offset: 25px;
+    line-height:3em;
+    letter-spacing: 2px;
+}
+
+#introduction h2{
+    font-size: 3em;
+    overflow-wrap: break-word;
+}
+
+#introduction div.subtitle{
+    line-height: 3em;
+    margin-bottom: 2em;
+    width: 400px;
+
+}
+#introduction h2.part1{
+    transform: translateX(200px);
+}
+#introduction h2.part2{
+    transform: translateX(250px);
+}
+#introduction p.hook{
+    font-size: 1.5em;
+    line-height: 1.5em;
+    width: 790px;
+    margin-bottom: 1.5em;
+    transform: translateX(200px);
+}
+
+#introduction blockquote.quote{
+    font-weight: bold;
+    column-count: 2;
+}
+
+#introduction a{
+    line-height: 2em;
+    text-align: right;
+    font-weight: bold;
+    text-decoration: none;
+}
+#introduction a:link{
+    color: black;
+}
+#introduction a:visited{
+    color: rgb(181, 71, 89);
+}
+#introduction a:focus{
+    color: orange;
+}
+#introduction a:hover{
+    color: blue;
+}
+#introduction a:active{
+    color: pink;
+}
+
+#sidebar.logo{
+  margin: 20px 0px;
+}
+
+#sidebar figure{
+    grid-area: figure;
+    font-size: 12px;
+    margin: 20px 0px;
+   
+}
+
+#sidebar source p{
+    grid-area: source;
+    margin: 20px 0px;
+
+}
+
+#sidebar{
+     background-color: rgb(172, 242, 242);
+     padding: 2em;
+     grid-area: sidebar;
+     display: flex;
+     flex-direction: column;
+     text-align: right;
+     
 }
 
 #content{
     background-color: rgb(202, 131, 131);
+    padding: 2em;
     grid-area: content;
+    column-count: 3;
 }
 
 #single-page{
-    display:grid;
-    height:100vh;
+    display: grid;
+    height: 100vh;
 
-    grid-template-columns: 2fr 10fr;
+    grid-row: 6fr 6fr;
+    grid-column: 2fr 10fr;
 
     grid-template-areas: "sidebar introduction"
-                        " sidebar content"
                         "sidebar content";
-}
-.graph{
-    grid-area:graph;
-}
-.image1{
-    grid-area: threed;
-}
-.image2{
-    grid-area:map;
-}
-.main-text{
-    grid-area: mtext;
-}
-.subtext{
-    grid-area: subtext;
-}
-
-#content{
-    display:grid;
-    height:auto;
-
-    grid-template-columns: 4fr 4fr 4fr;
-    grid-template-rows: 4fr 4fr 4fr;
-    
 }
