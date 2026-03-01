@@ -3,13 +3,14 @@
 /*adding colours to the sectiosn to differenciate them*/
 *{
     margin: 0;
-
-   outline: 1px solid red; 
+    outline: 1px solid red; 
+    box-sizing: border-box;
 }
 
 body{
     background-color: rgb(175, 170, 170);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    max-width: 1200px;
 
 }
 
@@ -41,16 +42,19 @@ body{
     width: 400px;
 
 }
+
 #introduction h2.part1{
     transform: translateX(200px);
 }
+
 #introduction h2.part2{
     transform: translateX(250px);
 }
+
 #introduction p.hook{
     font-size: 1.5em;
-    line-height: 1.5em;
-    width: 790px;
+    width: 500px;
+    padding: 20px;
     margin-bottom: 1.5em;
     transform: translateX(200px);
 }
@@ -83,45 +87,88 @@ body{
 }
 
 #sidebar.logo{
-  margin: 20px 0px;
+    margin: 20px 0px;
+    grid-area: logo;
 }
 
 #sidebar figure{
     grid-area: figure;
-    font-size: 12px;
+    font-size: 10px;
     margin: 20px 0px;
-   
 }
 
-#sidebar source p{
+#sidebar source{
     grid-area: source;
     margin: 20px 0px;
+    
+}
 
+#sidebar p{
+    font-size: 10px;
 }
 
 #sidebar{
-     background-color: rgb(172, 242, 242);
-     padding: 2em;
-     grid-area: sidebar;
-     display: flex;
-     flex-direction: column;
-     text-align: right;
-     
+    background-color: rgb(172, 242, 242);
+    padding: 1em;
+    grid-area: sidebar;
+    text-align: right;
+
+    max-width: 300px;
+
+    display: grid;
+    grid-row: 3fr 3fr 3fr 3fr;
+    grid-template-areas: "logo"
+                        "figure"
+                        "."
+                        "source"
+                        ".";
+}
+
+div.subtext{
+    font-weight: bold;
+    font-size: 1.5em;
+    max-width: 26rem;
+    border-bottom: 10px solid black;
+    padding-bottom: 1em;
+    
 }
 
 #content{
     background-color: rgb(202, 131, 131);
     padding: 2em;
     grid-area: content;
-    column-count: 3;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+
+}
+
+#content p{
+    font-size: 14px;
+    margin: 5px;
+}
+
+#content img{
+    margin: 5px;
+}
+
+#content div.col{
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    max-width: 15rem;
+    min-width:10rem;
+    margin: 1em;
 }
 
 #single-page{
     display: grid;
     height: 100vh;
 
-    grid-row: 6fr 6fr;
-    grid-column: 2fr 10fr;
+    grid-row: 5fr 7fr;
+    grid-column: 1fr 12fr;
 
     grid-template-areas: "sidebar introduction"
                         "sidebar content";
