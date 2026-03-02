@@ -3,14 +3,14 @@
 /*adding colours to the sectiosn to differenciate them*/
 *{
     margin: 0;
-    outline: 1px solid red; 
+    /*outline: 1px solid red; */
     box-sizing: border-box;
 }
 
 body{
     background-color: rgb(175, 170, 170);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    max-width: 1200px;
+   /* max-width: 1200px;*/
 
 }
 
@@ -53,7 +53,7 @@ body{
 
 #introduction p.hook{
     font-size: 1.5em;
-    width: 500px;
+    width: 500px;*/
     padding: 20px;
     margin-bottom: 1.5em;
     transform: translateX(200px);
@@ -133,15 +133,39 @@ div.subtext{
     
 }
 
+#content div.col-1{
+    grid-area: col-1;
+}
+
+#content div.col-2{
+    grid-area: col-2;
+}
+
+#content div.col-3{
+    grid-area: col-3;
+}
+
+#content div.subtext{
+    grid-area: subtext;
+}
+
+#content img{
+    max-width: 100%;
+}
 #content{
     background-color: rgb(202, 131, 131);
     padding: 2em;
     grid-area: content;
 
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
+    display:grid;
+    grid-column: 1fr 1fr 1fr;
+
+    grid-template-areas: "col-1 col-2 col-3"
+                        "subtext subtext col-3";
+
+    gap: 1em;
+
+
 
 }
 
@@ -153,15 +177,13 @@ div.subtext{
 #content img{
     margin: 5px;
 }
-
+/*
 #content div.col{
-    display:flex;
-    flex-direction: column;
-    align-content: center;
-    max-width: 15rem;
-    min-width:10rem;
-    margin: 1em;
-}
+    display:grid;
+    grid-column: 1fr 1fr 1fr;
+
+    
+} */
 
 #single-page{
     display: grid;
