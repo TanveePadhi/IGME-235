@@ -10,7 +10,6 @@
 body{
     background-color: rgb(175, 170, 170);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   /* max-width: 1200px;*/
 
 }
 
@@ -28,35 +27,25 @@ body{
     text-decoration: underline;
     text-underline-offset: 25px;
     line-height:3em;
-    letter-spacing: 2px;
 }
 
 #introduction h2{
     font-size: 3em;
-    overflow-wrap: break-word;
-}
-
-#introduction div.subtitle{
-    line-height: 3em;
-    margin-bottom: 2em;
-    width: 400px;
-
 }
 
 #introduction h2.part1{
-    transform: translateX(200px);
+    text-align: center;
 }
 
 #introduction h2.part2{
-    transform: translateX(250px);
+    text-align: center;
 }
 
 #introduction p.hook{
     font-size: 1.5em;
-    width: 500px;*/
-    padding: 20px;
-    margin-bottom: 1.5em;
-    transform: translateX(200px);
+
+    margin: 1.5em;
+    text-align: right;
 }
 
 #introduction blockquote.quote{
@@ -97,6 +86,10 @@ body{
     margin: 20px 0px;
 }
 
+#sidebare figure img{
+    width:100%;
+}
+
 #sidebar source{
     grid-area: source;
     margin: 20px 0px;
@@ -113,7 +106,7 @@ body{
     grid-area: sidebar;
     text-align: right;
 
-    max-width: 300px;
+    /*max-width: 300px;*/
 
     display: grid;
     grid-row: 3fr 3fr 3fr 3fr;
@@ -124,14 +117,7 @@ body{
                         ".";
 }
 
-div.subtext{
-    font-weight: bold;
-    font-size: 1.5em;
-    max-width: 26rem;
-    border-bottom: 10px solid black;
-    padding-bottom: 1em;
-    
-}
+
 
 #content div.col-1{
     grid-area: col-1;
@@ -147,6 +133,9 @@ div.subtext{
 
 #content div.subtext{
     grid-area: subtext;
+    font-weight: bold;
+    font-size: 1.5em;
+    border-bottom: 10px solid black;
 }
 
 #content img{
@@ -165,8 +154,6 @@ div.subtext{
 
     gap: 1em;
 
-
-
 }
 
 #content p{
@@ -177,13 +164,6 @@ div.subtext{
 #content img{
     margin: 5px;
 }
-/*
-#content div.col{
-    display:grid;
-    grid-column: 1fr 1fr 1fr;
-
-    
-} */
 
 #single-page{
     display: grid;
@@ -194,4 +174,63 @@ div.subtext{
 
     grid-template-areas: "sidebar introduction"
                         "sidebar content";
+}
+
+
+/*MOBILE VERSION*/
+
+@media screen and (max-width:450px ) {
+   
+
+    #single-page{
+        grid-template-rows: 3fr 2fr 7fr;
+        grid-template-columns: none;
+
+        grid-template-areas: " introduction"
+                        "sidebar"
+                        "content";
+    }
+
+    #introduction h1{
+        font-size: 2.5em;
+    }
+
+    #introduction h2{
+        font-size: 1.7em;
+    }
+
+    #sidebar{
+       grid-template-columns: 1fr 1fr;
+
+        grid-template-areas: "logo  source "
+                            "figure source";
+    }
+
+    #sidebar.logo{
+        margin:0px;
+    }
+
+    #sidebar figure{
+        margin:0px;
+    }
+
+    #sidebar source{
+        margin:0px;
+    }
+    
+    #content img{
+        width: 50%;
+        float: right;
+    }
+
+    #content{
+        grid-template-columns:none;
+        grid-template-rows: 1 fr 1fr 1fr;
+
+        grid-template-areas: "col-1 "
+                            "col-2"
+                            "col-3"
+                            "subtext";
+    }
+
 }
