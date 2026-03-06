@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>DOM-3</title>
+	<style>
+		body{border:1px solid gray;}
+		p b{transform: rotate(20deg)}
+	</style>
+</head>
+<body>
+<h1>My Page</h1>
+<h2>Info</h2>
+<h2>Pictures</h2>
+<h2>More Info</h2>
+<p>Blah <b>Blah</b> Blah</p>
+<p>Blah <b>Blah</b> Blah</p>
+<p id="lastParagraph">Blah <b>Blah</b> Blah</p>
+<footer>Copyright &copy; <b>20XX</b></footer>
+<script>
+	"use strict"; 
+  
+  // add your own code here.
+
+  let h1 = document.querySelector("h1");
+  h1.innerHTML = "My UFO Page";
+
+  let h2 = document.querySelectorAll("h2");
+
+  for(let i = 0; i < h2.length; i++){
+    if(i == h2.length-1 ){
+        h2[i].innerHTML = "";
+
+    }
+    else{
+        let temp = h2[i];
+        h2[i].innerHTML = "My UFO " + temp.innerHTML;
+    }
+  } 
+
+  document.body.style.fontFamily = "sans-serif";
+  document.body.style.color = "#D4472B";
+
+  let firstP = document.querySelector("p");
+  firstP.innerHTML = "Report your UDO sightings here: "
+
+  let linkA = document.createElement("a");
+  linkA.setAttribute("href", "http://www.nuforc.org");
+  linkA.innerHTML = " http://www.nuforc.org";
+
+  firstP.append(linkA)
+
+  firstP.style.color = "green";
+  firstP.style.fontWeight = "bold";
+  firstP.style.fontSize = "2em"; 
+  firstP.style.textTransform = "uppercase";
+  firstP.style.textShadow = "3px 2px #A44";
+
+  let p2 = document.body.children[5];
+  p2.innerHTML = "";
+
+  let p3 = document.querySelector("#lastParagraph");
+  p3.innerHTML = "";
+
+  let image = document.createElement("img");
+  image.setAttribute("src", "https://api.time.com/wp-content/uploads/2016/02/150222-ufo-sightings-06.jpg?quality=85")
+  image.setAttribute("alt", "ufo sighting");
+  image.style.width = "500px";
+
+  p3.append(image);
+
+  let footer = document.querySelector("footer");
+  footer.innerHTML = "Copyright &copy 2026 Tanvee Padhi"
+
+
+	
+	</script>
+
+</body>
+</html>
