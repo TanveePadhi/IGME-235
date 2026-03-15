@@ -33,11 +33,6 @@ body{
     font-size: 3em;
 }
 
-#introduction h3{
-    font-size: 2em;
-    line-height: 2em;
-}
-
 #introduction h2.part1{
     text-align: center;
 }
@@ -53,7 +48,7 @@ body{
     text-align: right;
 }
 
-#introduction div.publication-info ul{
+#introduction blockquote.quote{
     font-weight: bold;
     column-count: 2;
 }
@@ -155,7 +150,7 @@ body{
     grid-column: 1fr 1fr 1fr;
 
     grid-template-areas: "col-1 col-2 col-3"
-                        "subtext subtext subtext";
+                        "subtext subtext col-3";
 
     gap: 1em;
 
