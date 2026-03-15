@@ -10,6 +10,7 @@
 body{
     background-color: rgb(175, 170, 170);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 1.5em;
 
 }
 
@@ -31,6 +32,7 @@ body{
 
 #introduction h2{
     font-size: 3em;
+    line-height: 1.5em;
 }
 
 #introduction h3{
@@ -53,7 +55,7 @@ body{
     text-align: right;
 }
 
-#introduction div.publication-info ul{
+#publication-info ul{
     font-weight: bold;
     column-count: 2;
 }
@@ -111,8 +113,6 @@ body{
     grid-area: sidebar;
     text-align: right;
 
-    /*max-width: 300px;*/
-
     display: grid;
     grid-row: 3fr 3fr 3fr 3fr;
     grid-template-areas: "logo"
@@ -161,6 +161,9 @@ body{
 
 }
 
+#content h3{
+    margin-top:1em;
+}
 #content p{
     font-size: 14px;
     margin: 5px;
@@ -185,7 +188,6 @@ body{
 /*MOBILE VERSION*/
 
 @media screen and (max-width:450px ) {
-   
 
     #single-page{
         grid-template-rows: 3fr 2fr 7fr;
@@ -205,7 +207,7 @@ body{
     }
 
     #sidebar{
-       grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
 
         grid-template-areas: "logo  source "
                             "figure source";
