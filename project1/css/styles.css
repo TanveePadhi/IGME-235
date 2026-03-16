@@ -14,9 +14,13 @@ body{
 
 }
 
+h1, h2, h3{
+    color: #312f64;
+}
+
 
 #introduction{
-    background-color: rgb(131, 180, 131);
+    background-color: #708993;
     padding: 1em;
     grid-area: introduction;
 
@@ -53,6 +57,10 @@ body{
 
     margin: 1.5em;
     text-align: right;
+}
+
+#introduction p, #introduction li{
+    color: rgb(226, 222, 222);
 }
 
 #publication-info ul{
@@ -93,7 +101,7 @@ body{
     margin: 20px 0px;
 }
 
-#sidebare figure img{
+#sidebar figure img{
     width:100%;
 }
 
@@ -108,7 +116,7 @@ body{
 }
 
 #sidebar{
-    background-color: rgb(172, 242, 242);
+    background-color: #E7F2EF;
     padding: 1em;
     grid-area: sidebar;
     text-align: right;
@@ -147,7 +155,7 @@ body{
     max-width: 100%;
 }
 #content{
-    background-color: rgb(202, 131, 131);
+    background-color: #A1C2BD;
     padding: 2em;
     grid-area: content;
 
