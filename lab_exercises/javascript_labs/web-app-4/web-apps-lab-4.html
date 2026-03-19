@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>Web Apps-3-HW</title>
+	<title>Web Apps-4-HW</title>
 	<style>
 		body{border:1px solid gray;}
 	</style>
@@ -40,24 +40,20 @@
             "New Media Club" : "http://newmediaclub.cias.rit.edu"
         }
 
-    let colorList = document.getElementById("colorsList");
-
-    for(let i of colors){
-        let li = document.createElement("li")
-        li.innerHTML = i;
-        colorList.appendChild(li);
+    function createList(listElement, array =["puppydogs", "butterflies", "lollipops"]){
+        for(let i of array){
+            let li = document.createElement("li");
+            li.innerHTML = i;
+            listElement.appendChild(li);
+        }
         
     }
-
+    let colorList = document.getElementById("colorsList");
     let foodList = document.getElementById("foodsList");
-
-    for(let f of foods){
-        let li = document.createElement("li")
-        li.innerHTML = f;
-        foodList.appendChild(li);
-    }
-
     let linkList = document.getElementById("linksList");
+
+    createList(colorList, colors); 
+    createList(foodList, foods); 
 
     for(let l in links){
         let li = document.createElement("li")
