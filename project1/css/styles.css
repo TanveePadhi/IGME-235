@@ -120,6 +120,7 @@ img{
     padding: 10px;
     background-color: #312f64;
     border: 1px solid black;
+    line-height: 3em;
 }
 
 #sidebar.logo{
@@ -305,8 +306,13 @@ img{
                             "playdead";
     } 
 
-    #navigation a{
-        margin: 10px;
+    #empty{
+        height: 7vh;
+    }
+
+    #navigation {
+        height: 7vh;
+        text-align: center;
     }
 
 }
