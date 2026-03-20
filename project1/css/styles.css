@@ -18,6 +18,11 @@ h1, h2, h3{
     color: #312f64;
 }
 
+p, ul{
+    font-size: 25px;
+    line-height: 1.5em;
+}
+
 
 #introduction{
     background-color: #708993;
@@ -27,36 +32,40 @@ h1, h2, h3{
     display:flex;
     flex-direction: column;
 }
-#introduction h1{
-    font-size: 4em;
+h1{
+    font-size: 3.5em;
     text-decoration: underline;
-    text-underline-offset: 25px;
+    text-underline-offset: 10px;
     line-height:3em;
+    position: relative;
+    top: 1vh;
 }
 
-#introduction h2{
+h2{
     font-size: 3em;
-    line-height: 1.5em;
+    line-height: 1em;
 }
 
-#introduction h3{
+h3{
     font-size: 2em;
     line-height: 2em;
 }
 
-#introduction h2.part1{
-    text-align: center;
+img{
+    width:100%
 }
-
-#introduction h2.part2{
+#empty{
+    height: 5vh;
+    grid-area: empty;
+}
+#introduction h2.part1{
     text-align: center;
 }
 
 #introduction p.hook{
     font-size: 1.5em;
-
     margin: 1.5em;
-    text-align: right;
+    text-align: center;
 }
 
 #introduction p, #introduction li{
@@ -65,8 +74,9 @@ h1, h2, h3{
 
 #publication-info ul{
     font-weight: bold;
-    column-count: 2;
+    line-height: 2em;
 }
+
 
 #introduction a{
     line-height: 2em;
@@ -74,20 +84,42 @@ h1, h2, h3{
     font-weight: bold;
     text-decoration: none;
 }
-#introduction a:link{
-    color: black;
+#navigation{
+    grid-area: navigation;
+    padding: 1em;
+
+    width: 100%;
+    height: 5vh;
+    position: fixed;
+    top: 0;
+    background-color: #333;
 }
-#introduction a:visited{
+#navigation a:link{
+    color: rgb(226, 222, 222);
+}
+#navigation a:visited{
     color: rgb(181, 71, 89);
 }
-#introduction a:focus{
+#navigation a:focus{
     color: orange;
 }
-#introduction a:hover{
-    color: blue;
+#navigation a:hover{
+    color: rgb(251, 227, 191);
 }
-#introduction a:active{
-    color: pink;
+#navigation a:active{
+    color: rgb(145, 217, 182);
+}
+
+#navigation nav{
+    text-align: center;
+}
+
+#navigation nav a{
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    background-color: #312f64;
+    border: 1px solid black;
 }
 
 #sidebar.logo{
@@ -95,26 +127,20 @@ h1, h2, h3{
     grid-area: logo;
 }
 
-#sidebar figure{
-    grid-area: figure;
+#sidebar img.playdead{
+    grid-area: playdead;
     font-size: 10px;
-    margin: 20px 0px;
 }
 
-#sidebar figure img{
-    width:100%;
-}
-
-#sidebar source{
-    grid-area: source;
-    margin: 20px 0px;
-    
-}
 
 #sidebar p{
     font-size: 10px;
 }
 
+#sidebar #publication-info{
+    grid-area: publication;
+    text-align: left;
+}
 #sidebar{
     background-color: #E7F2EF;
     padding: 1em;
@@ -124,48 +150,58 @@ h1, h2, h3{
     display: grid;
     grid-row: 3fr 3fr 3fr 3fr;
     grid-template-areas: "logo"
-                        "figure"
+                        "publication"
+                        "playdead"
                         "."
-                        "source"
                         ".";
-}
-
-
-
-#content div.col-1{
-    grid-area: col-1;
-}
-
-#content div.col-2{
-    grid-area: col-2;
-}
-
-#content div.col-3{
-    grid-area: col-3;
 }
 
 #content div.subtext{
     grid-area: subtext;
     font-weight: bold;
     font-size: 1.5em;
-    border-bottom: 10px solid black;
 }
 
-#content img{
-    max-width: 100%;
+#content div.rc1-1{
+    grid-area: rc1-1;
 }
+#content div.rc1-2{
+    grid-area: rc1-2;
+}
+
+#content div.rc1-3{
+    grid-area: rc1-3;
+}
+#content div.rc1-4{
+    grid-area: rc1-4;
+}
+
+#content div.rc2-1{
+    grid-area: rc2-1;
+}
+
+#content div.rc2-2{
+    grid-area: rc2-2;
+}
+
+#content div.rc3{
+    grid-area: rc3;
+}
+
 #content{
     background-color: #A1C2BD;
     padding: 2em;
     grid-area: content;
 
     display:grid;
-    grid-column: 1fr 1fr 1fr;
+    grid-row: 8fr 2fr 2fr;
+    grid-column: 1fr 1fr 1fr 1fr;
 
-    grid-template-areas: "col-1 col-2 col-3"
-                        "subtext subtext subtext";
-
-    gap: 1em;
+    grid-template-areas: "rc1-1 rc1-2 rc1-3 rc1-4"
+                        "rc2-1 rc2-1 rc2-2 rc2-2"
+                        "rc3 rc3 rc3 rc3";
+    
+    gap: 2em;
 
 }
 
@@ -173,38 +209,84 @@ h1, h2, h3{
     margin-top:1em;
 }
 #content p{
-    font-size: 14px;
     margin: 5px;
 }
 
-#content img{
-    margin: 5px;
+#footer{
+    grid-area: footer;
+    background-color: #708993;
+    padding: 1em;
 }
+
+#footer p{
+    color: rgb(226, 222, 222);
+}
+
 
 #single-page{
     display: grid;
     height: 100vh;
 
-    grid-row: 5fr 7fr;
+    grid-row: 1fr 3fr 7fr 1fr;
     grid-column: 1fr 12fr;
 
-    grid-template-areas: "sidebar introduction"
-                        "sidebar content";
+    grid-template-areas:"empty empty"
+                        "sidebar introduction"
+                        "sidebar content"
+                        "footer footer";
 }
 
 
 /*MOBILE VERSION*/
 
-@media screen and (max-width:450px ) {
+
+@media screen and (max-width:900px ){
 
     #single-page{
-        grid-template-rows: 3fr 2fr 7fr;
+        grid-template-rows: 1fr 3fr 2fr 7fr 1fr;
         grid-template-columns: none;
 
-        grid-template-areas: " introduction"
+        grid-template-areas: "empty"
+                        "introduction"
                         "sidebar"
-                        "content";
+                        "content"
+                        "footer";
     }
+
+    #sidebar img{
+        width: 80%;
+    }
+
+    #sidebar{
+        text-align: left;
+
+        grid-row: 1fr 1fr;
+        grid-column: 2fr 2fr;
+
+        grid-template-areas:"publication logo " 
+                            "publication playdead";
+                            gap: 4em;
+
+    }
+
+        #content{
+        grid-template-columns:none;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+        grid-template-areas: "rc1-1"
+                            "rc1-2"
+                            "rc1-3"
+                            "rc1-4"
+                            "rc2-1"
+                            "rc2-2"
+                            "rc3";
+    }
+
+}
+
+@media screen and (max-width:500px ) {
+
+
 
     #introduction h1{
         font-size: 2.5em;
@@ -214,38 +296,17 @@ h1, h2, h3{
         font-size: 1.7em;
     }
 
+
+
     #sidebar{
-        grid-template-columns: 1fr 1fr;
+        grid-row: 1fr 1fr 1fr;
+        grid-template-areas:"publication  " 
+                            "logo"
+                            "playdead";
+    } 
 
-        grid-template-areas: "logo  source "
-                            "figure source";
-    }
-
-    #sidebar.logo{
-        margin:0px;
-    }
-
-    #sidebar figure{
-        margin:0px;
-    }
-
-    #sidebar source{
-        margin:0px;
-    }
-    
-    #content img{
-        width: 50%;
-        float: right;
-    }
-
-    #content{
-        grid-template-columns:none;
-        grid-template-rows: 1 fr 1fr 1fr;
-
-        grid-template-areas: "col-1 "
-                            "col-2"
-                            "col-3"
-                            "subtext";
+    #navigation a{
+        margin: 10px;
     }
 
 }
