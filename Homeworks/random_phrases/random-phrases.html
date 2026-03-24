@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Phrases</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Datatype:wght@100..900&family=Trispace:wght@100..800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <h1>Random Mythology Quotes</h1>
+    <h3>By: Tanvee Padhi for 235 homework using javascript</h3>
+
+    <div id="container">
+        <img src="images/athens.jpg" alt="athens">
+
+        <p id="text"> Random Quote </p>
+
+        <button id="change-quote"> Change Quote </button>
+
+    </div>
+
+
+    <footer>
+        &copy Tanvee Padhi 2026
+    </footer>
+
+    <script>
+
+        let quotes = [ "Mythology has largely been written by men and focusses on men - on wars and men, who went to war. But, there are women who influence the decisions of men.",
+                        "Opening Pandora's box",
+                        "Love, however, cannot be forbidden. The more that flame is covered up, the hotter it burns. Also love can always find a way.",
+                        "Tell one your thoughts, but beware of two. All know what is known to three",
+                        "'I want to be the hero,' she announced.",
+                        "Here, take some pomegranates for the road."];
+        
+        let displayQuote = (num) => {return Math.floor(Math.random()*(num))};
+
+        let p = document.querySelector("#text");
+
+        p.innerHTML = quotes[displayQuote(quotes.length)];
+
+        let button = document.querySelector("#change-quote")
+
+        button.onclick = function(e){
+             p.innerHTML = quotes[displayQuote(quotes.length)];
+        }
+
+    </script>
+    
+</body>
+</html>
