@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        const searchTerm = "apple"
+        const url = "https://dummyjson.com/products/search?q=" + searchTerm;
+
+        function getData(url){
+            let xhr = new XMLHttpRequest();
+
+            xhr.onload = dataLoaded;
+            xhr.onerror = (e) => {
+                console.log("an error has happened");
+            }
+
+            xhr.open("GET", url);
+            xhr.send();            
+
+            }
+
+        function dataLoaded(e){
+            let xhr = e.target;
+            console.log(xhr.responseText);
+
+            let data = JSON.parse(xhr.responseText);
+            let products = data['products'];
+
+            console.log(products);
+
+        }
+
+        getData(url);
+
+    </script>
+    
+</body>
+</html>
