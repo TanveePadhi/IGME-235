@@ -1,3 +1,4 @@
+
 // 1
     window.onload = (e) => {document.querySelector("#search").onclick = searchButtonClicked};
 	
@@ -6,7 +7,7 @@
 	
 	// 3
 	function searchButtonClicked(){
-		console.log("searchButtonClicked() called");
+		//console.log("searchButtonClicked() called");
         //1
         const GIPHY_URL = "https://api.giphy.com/v1/gifs/search?";
 
@@ -43,7 +44,7 @@
         document.querySelector("#status").innerHTML = "<b>Searching for '" + displayTerm + "</b>";
 
         //11
-        console.log(url);
+        //console.log(url);
         
 
         document.querySelector("#content").innerHTMLHTML = `<img src="images/spinner.gif" alt="loading">`
@@ -73,7 +74,7 @@
         let xhr = e.target;
 
         //6
-        console.log(xhr.responseText);
+        //console.log(xhr.responseText);
 
         //7 
         let obj = JSON.parse(xhr.responseText);
@@ -86,7 +87,7 @@
 
         //9
         let results = obj.data;
-        console.log("results.length = " + results.length);
+        //console.log("results.length = " + results.length);
         //let bigString = "<p><i> Here are " + results.length + " results for '" + displayTerm + "'</i></p>";
         let bigString = "";
 
@@ -128,3 +129,5 @@
     function dataError(e){
         console.log("An error occurred");
     }
+
+
