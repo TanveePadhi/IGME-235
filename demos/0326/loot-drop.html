@@ -58,19 +58,23 @@
   const inventoryDiv = document.querySelector("#inventory");
 
   // We'll write the rest together
-
   fetch("loot-table.json")
   .then( response => {
     if(!response.ok){
-      throw new Error("didnt work")
+      throw new Error(`It didnt work`);
+    }
+   
+    return response.json();
+  })
+  .then(data => {
+    //console.log(data);
+    //console.log(data['lootTable']);
+
+    for( let i = 0; i < data['lootTable'].length; i++){
+
+      console.log(data['lootTable'][i]['name'] );
     }
 
-    return response.json();
-  } )
-
-  .then(data => {
-    console.log(data);
-    console.log(data[`lootTable`])
   })
 
   </script>

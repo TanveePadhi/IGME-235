@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 2</title>
+</head>
+<body>
+
+    <header> 
+        <h1>Magic the Gathering Cards</h1>
+    </header>
+
+    <div id="widgets">
+        search bar plus filters to be implemented
+
+        <div id="search-bar">
+            <input type="text" size="20" maxlength="20" autofocus value="flying"/>
+        </div>
+
+        <div class="search-limit">
+            <select id="limit">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+
+        <div class="sort-types">
+            <select id="sorts">
+                <option value="name">Name</option>
+                <option value="set">Set</option>
+                <option value="rarity">Rarity</option>
+                <option value="cmc">Mana Value</option>
+                <option value="power">Power</option>
+                <option value="toughness">Toughness</option>
+                <option value="artist-name">Artist Name</option>
+            </select>
+        </div>
+
+          <div class="card-color">
+            <select id="colors">
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="black">Black Value</option>
+                <option value="white">White</option>
+                <option value="colorless">Colorless</option>
+            </select>
+        </div>
+
+          <div class="card-type">
+            <select id="types">
+                <option value="artifact">Artifact</option>
+                <option value="battle">Battle</option>
+                <option value="creature">Creature</option>
+                <option value="enchantment">Enchantment</option>
+                <option value="instant">Instant</option>
+                <option value="kindred">Kindred</option>
+                <option value="land">Land</option>
+                <option value="planeswalker">Planeswalker</option>
+                <option value="sorcery">Sorcery</option>
+            </select>
+        </div>
+    </div>
+
+    <h2>Results</h2>
+    <div id="content">
+        No Cards Yet
+    </div>
+
+
+    <script>
+        "use strict";
+
+        /* there is any issue with retriving the option selcted by theuser it is not working with onchange eventlsterned or added function/ Maybe a scope issue idk*/
+
+        let url = "https://api.scryfall.com/cards/search?order=cmc&q=";
+
+        var searchterm;
+
+        let cardtype = document.querySelector("#types");
+        let arr = Array.from(cardtype.options)
+                            .filter(option => option.selected)
+                            .map(option => option.value);
+        console.log(arr);
+        
+        
+        /*const url = "https://api.scryfall.com/cards/search?order=cmc&q=";
+        console.log(url);
+
+        //getting data from api
+        function getData(url){
+            let xhr = new XMLHttpRequest();
+
+            xhr.onload = dataLoaded;
+            xhr.onerror = (e) => {
+                console.log("an error has happened");
+            }
+
+            xhr.open("GET", url);
+            xhr.send();           
+
+            }
+
+        function dataLoaded(e){
+            let xhr = e.target;
+            console.log(xhr.responseText);
+
+            let data = JSON.parse(xhr.responseText);
+
+            console.log(data);
+
+        }
+
+        getData(url); */
+
+    </script>
+    
+</body>
+</html>
