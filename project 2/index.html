@@ -15,7 +15,7 @@
         search bar plus filters to be implemented
 
         <div id="search-bar">
-            <input type="text" size="20" maxlength="20" autofocus value="flying"/>
+            <input id="term" type="text" size="20" maxlength="20" autofocus value="flying"/>
         </div>
 
         <div class="search-limit">
@@ -31,7 +31,6 @@
         <div class="sort-types">
             sort types for card
             <select id="sorts">
-                <option value="none">None</option>
                 <option value="name">Name</option>
                 <option value="set">Set</option>
                 <option value="rarity">Rarity</option>
@@ -72,9 +71,14 @@
         </div>
     </div>
 
-    <div id="submit"></div>
+    <div id="search-button">
+        <button>Search</button>
+    </div>
 
     <h2>Results</h2>
+
+    <div id="status">Ready to Search!</div>
+
     <div id="content">
         No Cards Yet
     </div>
@@ -85,7 +89,7 @@
 
         /* there is any issue with retriving the option selcted by theuser it is not working with onchange eventlsterned or added function/ Maybe a scope issue idk*/
 
-        var searchterm;
+       /* var searchterm;
 
         //gets the select id for card types
         let cardtype = document.querySelector("#types");
@@ -115,9 +119,93 @@
 
             console.log(data);
 
-        }
+        }*/
 
-        getData(url); 
+         window.onload = (e) => {document.querySelector("#search-button").onclick = searchButtonClicked};
+
+         let searchTerm = "";
+         let sortType = "";
+         let cardColor = "";
+         let cardType = "";
+
+         function searchButtonClicked(){
+            //console.log("searchButtonClicked() called");
+
+            const SCRYFALL_URL = "https://api.scryfall.com/cards/search?order=";
+
+            let url = SCRYFALL_URL;
+
+            //adding a sort type
+            let sort = document.querySelector("#sorts").value;
+            sortType = sort;
+
+            url += sortType;
+
+            //retrieving search term from search bar
+            let term = document.querySelector("#term").value
+            searchTerm = term;
+
+            term.trim();
+
+            //handleing empty search bar
+            if(!term) {
+                url += "&q=";
+            }
+            else{
+                url += "&q=fo:" + term;
+            }
+
+            //adding a limtit check with proffessor since it seems the scryfall api doesnt have a limit
+
+            //adding a color
+            let color = document.querySelector("#colors").value;
+            cardColor = color;
+
+            if(cardColor != 'none'){
+                url += "+c:" + cardColor;
+            }
+
+            //adding a card type
+            let type = document.querySelector("#types").value;
+            cardType = type;
+
+            if(cardType != 'none'){
+                url += "+t:" + cardType;
+            }
+            console.log(url);
+
+            //updating status
+            document.querySelector("#status").innerHTML = `
+            Searching in order of ${sortType.toUpperCase()}. 
+            ${cardColor.toUpperCase()} colored cards of ${cardType.toUpperCase()} type`;
+
+            //calling getData method 
+            getData(url);
+
+         }
+        //getting data from api
+        function getData(url){
+            let xhr = new XMLHttpRequest();
+
+            xhr.onload = dataLoaded;
+            xhr.onerror = (e) => {
+                console.log("an error has happened");
+            }
+
+            xhr.open("GET", url);
+            xhr.send();           
+
+            }
+
+        function dataLoaded(e){
+            let xhr = e.target;
+            console.log(xhr.responseText);
+
+            let data = JSON.parse(xhr.responseText);
+
+            console.log(data);
+
+        }
 
     </script>
     
