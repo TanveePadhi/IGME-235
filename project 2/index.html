@@ -29,19 +29,23 @@
         </div>
 
         <div class="sort-types">
+            sort types for card
             <select id="sorts">
+                <option value="none">None</option>
                 <option value="name">Name</option>
                 <option value="set">Set</option>
                 <option value="rarity">Rarity</option>
                 <option value="cmc">Mana Value</option>
                 <option value="power">Power</option>
                 <option value="toughness">Toughness</option>
-                <option value="artist-name">Artist Name</option>
+                <option value="artist">Artist Name</option>
             </select>
         </div>
 
           <div class="card-color">
+            card colors
             <select id="colors">
+                <option value="none">None</option>
                 <option value="red">Red</option>
                 <option value="green">Green</option>
                 <option value="blue">Blue</option>
@@ -52,7 +56,9 @@
         </div>
 
           <div class="card-type">
+            card types
             <select id="types">
+                <option value="none">None</option>
                 <option value="artifact">Artifact</option>
                 <option value="battle">Battle</option>
                 <option value="creature">Creature</option>
@@ -66,6 +72,8 @@
         </div>
     </div>
 
+    <div id="submit"></div>
+
     <h2>Results</h2>
     <div id="content">
         No Cards Yet
@@ -77,18 +85,12 @@
 
         /* there is any issue with retriving the option selcted by theuser it is not working with onchange eventlsterned or added function/ Maybe a scope issue idk*/
 
-        let url = "https://api.scryfall.com/cards/search?order=cmc&q=";
-
         var searchterm;
 
+        //gets the select id for card types
         let cardtype = document.querySelector("#types");
-        let arr = Array.from(cardtype.options)
-                            .filter(option => option.selected)
-                            .map(option => option.value);
-        console.log(arr);
-        
-        
-        /*const url = "https://api.scryfall.com/cards/search?order=cmc&q=";
+
+        const url = "https://api.scryfall.com/cards/search?order=cmc&q=";
         console.log(url);
 
         //getting data from api
@@ -115,7 +117,7 @@
 
         }
 
-        getData(url); */
+        getData(url); 
 
     </script>
     
