@@ -48,7 +48,7 @@
                 <option value="red">Red</option>
                 <option value="green">Green</option>
                 <option value="blue">Blue</option>
-                <option value="black">Black Value</option>
+                <option value="black">Black</option>
                 <option value="white">White</option>
                 <option value="colorless">Colorless</option>
             </select>
@@ -176,7 +176,7 @@
 
             //updating status
             document.querySelector("#status").innerHTML = `
-            Searching in order of ${sortType.toUpperCase()}. 
+            Searching in order of ${sortType.toUpperCase()} for 
             ${cardColor.toUpperCase()} colored cards of ${cardType.toUpperCase()} type`;
 
             //calling getData method 
@@ -199,11 +199,37 @@
 
         function dataLoaded(e){
             let xhr = e.target;
-            console.log(xhr.responseText);
+            //console.log(xhr.responseText);
 
             let data = JSON.parse(xhr.responseText);
 
-            console.log(data);
+            console.log(data.data);
+
+            if(!data.data || data.length == 0 ){
+                document.querySelector("#status").innerHTML = `No results were found for searched term of ${searchTerm.toUpperCase()} of 
+                ${cardColor.toUpperCase()} color and 
+                ${cardType.toUpperCase()} type. Please try different search.`
+            }
+
+            //reference to data object data
+            let results = data.data;
+
+            let bigstring = "";
+
+            for(let i = 0; i < results.length; i++){
+                let card = results[i];
+
+                let smallURL = "https://api.scryfall.com/cards/named?exact=" + card.name + "&format=image";
+
+                console.log(smallURL);
+
+                //13
+                let line = `<div class = 'card'><img src='${smallURL}' title = '${card.id}' /> </div>`;
+                
+                bigstring += line; 
+            }
+
+            document.querySelector("#content").innerHTML = bigstring;
 
         }
 
