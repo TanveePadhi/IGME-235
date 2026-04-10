@@ -4,6 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project 2</title>
+
+    <style>
+        *{
+            margin: 0 aut0;
+        }
+        body{
+            font-family:fantasy;
+            background-color: #38405d;
+            color: #b59e90;
+            text-align: center;
+        }
+        h1{
+            font-size: 3em;
+            letter-spacing: 2px;
+            line-height: 2em;
+        }
+        h2{
+            font-size: 2em;
+            letter-spacing: 1px;
+            line-height: 1.5em;
+        }
+        h3{
+            font-size: 1.3em;
+            letter-spacing: 1px;
+            line-height: 1.5em;
+        }
+        #widgets{
+            display:flex;
+            justify-content: center;
+
+            border: 1px solid #6f6e6e;  
+            border-radius: 20px;    
+            background-color: #8b7983;  
+            padding: 10px;              
+            width: 80%;               
+            margin: 0 auto;     
+            color:#181923;    
+            box-sizing: border-box; 
+        }
+
+        #widgets p{
+            margin: 5px;
+        }
+
+        #widgets div{
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            text-align: center;
+            width: 50%;   
+        }
+        #widgets div select,input{
+            order:-1;
+        }
+        #content{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+            width:90%;
+            margin: 0 auto;
+            gap: 40px 10px;
+			text-align: center;
+        
+        }
+
+        #term, #limit, #sorts, #colors, #types{
+            font-family:'Courier New', Courier, monospace;
+            font-weight:550;
+        } 
+
+        #search-button button{
+            background-color: #6f687a;
+            border-top-style: 2px solid #181923;
+            border-left-style: 2px solid #181923;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: inline-block;
+            font-family: fantasy;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .card img{
+            width: 200px;
+            padding: 10px
+        }
+
+
+        a:link{
+            color: #e18f89;
+        }
+        a:visited{
+            color:#a2b3b2;
+        }
+         a:focus{
+            color:#e8e3e3
+        }
+        a:hover{
+            color:#a53551;
+        }
+        a:active{
+            color:#e1c0a9;
+        }
+
+        #results{
+            margin: 20px;
+        }
+
+        #status{
+            padding:10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -12,24 +124,26 @@
     </header>
 
     <div id="widgets">
-        search bar plus filters to be implemented
 
         <div id="search-bar">
+            <p>Search Bar <br>(text on the cards)</p>
             <input id="term" type="text" size="20" maxlength="20" autofocus value="flying"/>
         </div>
 
         <div class="search-limit">
+            <p> Number of Cards</p>
             <select id="limit">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+                <option value="all">All</option>
             </select>
         </div>
 
         <div class="sort-types">
-            sort types for card
+            <p>Sort Type</p>
             <select id="sorts">
                 <option value="name">Name</option>
                 <option value="set">Set</option>
@@ -42,7 +156,7 @@
         </div>
 
           <div class="card-color">
-            card colors
+            <p>Card Colors</p>
             <select id="colors">
                 <option value="none">None</option>
                 <option value="red">Red</option>
@@ -55,7 +169,7 @@
         </div>
 
           <div class="card-type">
-            card types
+            <p>Card Types</p>
             <select id="types">
                 <option value="none">None</option>
                 <option value="artifact">Artifact</option>
@@ -69,57 +183,24 @@
                 <option value="sorcery">Sorcery</option>
             </select>
         </div>
+
+            <div id="search-button">
+             <button>Search</button>
+            </div>
     </div>
 
-    <div id="search-button">
-        <button>Search</button>
-    </div>
 
-    <h2>Results</h2>
+    <h2 id="results">Results</h2>
 
-    <div id="status">Ready to Search!</div>
+    <div id="status">
+        <h3>Ready to Search!</h3></div>
 
     <div id="content">
-        No Cards Yet
     </div>
 
 
     <script>
         "use strict";
-
-        /* there is any issue with retriving the option selcted by theuser it is not working with onchange eventlsterned or added function/ Maybe a scope issue idk*/
-
-       /* var searchterm;
-
-        //gets the select id for card types
-        let cardtype = document.querySelector("#types");
-
-        const url = "https://api.scryfall.com/cards/search?order=cmc&q=";
-        console.log(url);
-
-        //getting data from api
-        function getData(url){
-            let xhr = new XMLHttpRequest();
-
-            xhr.onload = dataLoaded;
-            xhr.onerror = (e) => {
-                console.log("an error has happened");
-            }
-
-            xhr.open("GET", url);
-            xhr.send();           
-
-            }
-
-        function dataLoaded(e){
-            let xhr = e.target;
-            console.log(xhr.responseText);
-
-            let data = JSON.parse(xhr.responseText);
-
-            console.log(data);
-
-        }*/
 
          window.onload = (e) => {document.querySelector("#search-button").onclick = searchButtonClicked};
 
@@ -127,6 +208,8 @@
          let sortType = "";
          let cardColor = "";
          let cardType = "";
+         let cardLimit;
+         let cardData;
 
          function searchButtonClicked(){
             //console.log("searchButtonClicked() called");
@@ -156,6 +239,9 @@
             }
 
             //adding a limtit check with proffessor since it seems the scryfall api doesnt have a limit
+            let limit = document.querySelector("#limit").value;
+            cardLimit = limit;
+
 
             //adding a color
             let color = document.querySelector("#colors").value;
@@ -172,12 +258,12 @@
             if(cardType != 'none'){
                 url += "+t:" + cardType;
             }
-            console.log(url);
+           // console.log(url);
 
             //updating status
-            document.querySelector("#status").innerHTML = `
+            document.querySelector("#status").innerHTML = `<h3>
             Searching in order of ${sortType.toUpperCase()} for 
-            ${cardColor.toUpperCase()} colored cards of ${cardType.toUpperCase()} type`;
+            ${cardColor.toUpperCase()} colored cards of ${cardType.toUpperCase()} type </h3>`;
 
             //calling getData method 
             getData(url);
@@ -199,37 +285,62 @@
 
         function dataLoaded(e){
             let xhr = e.target;
-            //console.log(xhr.responseText);
 
             let data = JSON.parse(xhr.responseText);
 
-            console.log(data.data);
-
             if(!data.data || data.length == 0 ){
-                document.querySelector("#status").innerHTML = `No results were found for searched term of ${searchTerm.toUpperCase()} of 
+                document.querySelector("#status").innerHTML = `<h3>No results were found for searched term of ${searchTerm.toUpperCase()} of 
                 ${cardColor.toUpperCase()} color and 
-                ${cardType.toUpperCase()} type. Please try different search.`
+                ${cardType.toUpperCase()} type. Please try different search.</3>`
             }
 
             //reference to data object data
             let results = data.data;
 
+            cardData = results.length;
+
             let bigstring = "";
 
-            for(let i = 0; i < results.length; i++){
+            if(cardLimit == "all"){
+                cardLimit = cardData;
+            }
+
+
+            for(let i = 0; i < cardLimit; i++){
                 let card = results[i];
 
-                let smallURL = "https://api.scryfall.com/cards/named?exact=" + card.name + "&format=image";
+                //replacing spaces with +
+                let name = card.name;
+                 console.log(name);
+                //fixing names that contain //
+                if(name.indexOf("/") !== -1){
+                    name = name.substring(0, name.indexOf("/"));
+                }
 
-                console.log(smallURL);
+                //removes all special characters except em dash
+                name = name.replaceAll(/[^\w\s]|_/g, "");
+            
+
+                //finds the image through the exact card name
+                let smallURL = "https://api.scryfall.com/cards/named?exact=" + name + "&format=image";
+               // let smallCardURL = card["image_uris"];
+                let cardLink = "https://scryfall.com/card/" + card.set + "/" + card.collector_number+ "/"+ name;
+                
+               console.log(smallURL);
+               console.log(name);
 
                 //13
-                let line = `<div class = 'card'><img src='${smallURL}' title = '${card.id}' /> </div>`;
+                let line = `
+                <div class = 'card'>
+                    <a target='_blank' href='${cardLink}'> Card Image Link</a>
+                    <img src='${smallURL}' title = '${card.name}' /> 
+                </div>`;
                 
                 bigstring += line; 
             }
 
             document.querySelector("#content").innerHTML = bigstring;
+            document.querySelector("#results").innerHTML =  `A total of ${cardData} card(s) were found`;
 
         }
 
