@@ -311,7 +311,7 @@
 
                 //replacing spaces with +
                 let name = card.name;
-                 console.log(name);
+                 //console.log(name);
                 //fixing names that contain //
                 if(name.indexOf("/") !== -1){
                     name = name.substring(0, name.indexOf("/"));
@@ -325,19 +325,28 @@
                 let smallURL = "https://api.scryfall.com/cards/named?exact=" + name + "&format=image";
                // let smallCardURL = card["image_uris"];
                 let cardLink = "https://scryfall.com/card/" + card.set + "/" + card.collector_number+ "/"+ name;
+
+                let anotherurl = card['image_uris'];
+
+                if(anotherurl){
+                    smallURL = card['image_uris']['png'];
+                }
                 
-               console.log(smallURL);
-               console.log(name);
+              // console.log(smallURL);
+              console.log(anotherurl);
+               //console.log(name);
+              
 
                 //13
                 let line = `
                 <div class = 'card'>
-                    <a target='_blank' href='${cardLink}'> Card Image Link</a>
+                    <a target='_blank' href='${cardLink}'> ${card.name}</a>
                     <img src='${smallURL}' title = '${card.name}' /> 
                 </div>`;
                 
                 bigstring += line; 
             }
+            //console.log(cardData);
 
             document.querySelector("#content").innerHTML = bigstring;
             document.querySelector("#results").innerHTML =  `A total of ${cardData} card(s) were found`;
