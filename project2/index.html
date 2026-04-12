@@ -5,12 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project 2</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Balthazar&display=swap" rel="stylesheet">
+<!---
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script> -->
+
     <style>
+
+        /*MOBILE*/
+
         *{
-            margin: 0 aut0;
+            margin: 0 auto;
+            font-family: "Balthazar", fantasy;
+            font-weight: 400;
+            font-style: normal;
+            box-sizing: border-box;
         }
         body{
-            font-family:fantasy;
             background-color: #38405d;
             color: #b59e90;
             text-align: center;
@@ -30,17 +43,37 @@
             letter-spacing: 1px;
             line-height: 1.5em;
         }
+
+        .accordion {
+            display: block;
+            background-color: #8b7983;
+            border-bottom-style: 10px solid #181923;
+            color:#373845; 
+            cursor:grab;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 2em;
+            transition: 0.4s;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .active, .accordion:hover {
+                background-color: #b8a5af;
+            }
         #widgets{
             display:flex;
+            flex-direction: column;
             justify-content: center;
-
+            width: 100%;
+            border-radius: 0px;
+            background-color: #cbc0c6;
             border: 1px solid #6f6e6e;  
-            border-radius: 20px;    
-            background-color: #8b7983;  
-            padding: 10px;              
-            width: 80%;               
+            padding: 10px;                         
             margin: 0 auto;     
-            color:#181923;    
+            color:#373845;   
+            font-weight: 600; 
             box-sizing: border-box; 
         }
 
@@ -53,10 +86,7 @@
             flex-direction: column;
             padding: 10px;
             text-align: center;
-            width: 50%;   
-        }
-        #widgets div select,input{
-            order:-1;
+            width: 80%;   
         }
         #content{
             display: grid;
@@ -115,13 +145,36 @@
         #status{
             padding:10px;
         }
+
+        /*DESKTOP*/
+        @media screen and (min-width:769px) {
+
+
+            #widgets{
+                display: flex !important;
+                flex-direction: row;
+                border-radius: 20px;    
+                background-color: #8b7983;  
+                width: 95%; 
+                
+            }
+                    
+            #widgets div select,input{
+                order:-1;
+            }
+            .accordion{
+                display: none;
+            }
+            
+        }
     </style>
-</head>
 <body>
 
     <header> 
         <h1>Magic the Gathering Cards</h1>
     </header>
+
+    <button class="accordion"> Filters</button>
 
     <div id="widgets">
 
@@ -198,7 +251,6 @@
     <div id="content">
     </div>
 
-
     <script>
         "use strict";
 
@@ -212,7 +264,6 @@
         let cardData;
 
         function searchButtonClicked(){
-            //console.log("searchButtonClicked() called");
 
             const SCRYFALL_URL = "https://api.scryfall.com/cards/search?order=";
 
@@ -258,7 +309,6 @@
             if(cardType != 'none'){
                 url += "+t:" + cardType;
             }
-           // console.log(url);
 
             //updating status
             document.querySelector("#status").innerHTML = `<h3>
@@ -318,13 +368,12 @@
                 }
 
                 //removes all special characters except em dash
-                name = name.replaceAll(/[^\w\s]|_/g, "");
+                let cleanName = name.replaceAll(/[^\w\s]|_/g, "");
             
 
                 //finds the image through the exact card name
-                let smallURL = "https://api.scryfall.com/cards/named?exact=" + name + "&format=image";
-               // let smallCardURL = card["image_uris"];
-                let cardLink = "https://scryfall.com/card/" + card.set + "/" + card.collector_number+ "/"+ name;
+                let smallURL = "https://api.scryfall.com/cards/named?exact=" + cleanName + "&format=image";
+                let cardLink = "https://scryfall.com/card/" + card.set + "/" + card.collector_number+ "/"+ cleanName;
 
                 let anotherurl = card['image_uris'];
 
@@ -332,20 +381,17 @@
                     smallURL = card['image_uris']['png'];
                 }
                 
-              // console.log(smallURL);
                 console.log(anotherurl);
-               //console.log(name);
             
                //adding cards to content
                 let line = `
                 <div class = 'card'>
-                    <a target='_blank' href='${cardLink}'> ${card.name}</a>
+                    <a target='_blank' href='${cardLink}'> ${name}</a>
                     <img src='${smallURL}' title = '${card.name}' /> 
                 </div>`;
                 
                 bigstring += line; 
             }
-            //console.log(cardData);
 
             document.querySelector("#content").innerHTML = bigstring;
             document.querySelector("#results").innerHTML =  `A total of ${cardData} card(s) were found`;
@@ -419,10 +465,26 @@
             typeSelect.value = storedType;
         }
 
+        //making the accordion function for mobile version
+
+        let acc = document.querySelector(".accordion");
+        let filters = document.querySelector("#widgets");
+
+        if(acc.style.display != "none"){
+            acc.addEventListener("click", function() {
+            console.log("clicking works");
+            if (filters.style.display === "flex") {
+                filters.style.display = "none";
+            } 
+            else {
+                filters.style.display = "flex";
+            }
+        });
+        }
 
 
 
-    </script>
+    </script> 
     
 </body>
 </html>
