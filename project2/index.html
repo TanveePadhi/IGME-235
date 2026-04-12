@@ -98,7 +98,7 @@
         a:visited{
             color:#a2b3b2;
         }
-         a:focus{
+        a:focus{
             color:#e8e3e3
         }
         a:hover{
@@ -127,7 +127,7 @@
 
         <div id="search-bar">
             <p>Search Bar <br>(text on the cards)</p>
-            <input id="term" type="text" size="20" maxlength="20" autofocus value="flying"/>
+            <input id="term" type="text" size="20" maxlength="20" />
         </div>
 
         <div class="search-limit">
@@ -155,7 +155,7 @@
             </select>
         </div>
 
-          <div class="card-color">
+        <div class="card-color">
             <p>Card Colors</p>
             <select id="colors">
                 <option value="none">None</option>
@@ -168,7 +168,7 @@
             </select>
         </div>
 
-          <div class="card-type">
+        <div class="card-type">
             <p>Card Types</p>
             <select id="types">
                 <option value="none">None</option>
@@ -185,7 +185,7 @@
         </div>
 
             <div id="search-button">
-             <button>Search</button>
+            <button>Search</button>
             </div>
     </div>
 
@@ -202,16 +202,16 @@
     <script>
         "use strict";
 
-         window.onload = (e) => {document.querySelector("#search-button").onclick = searchButtonClicked};
+        window.onload = (e) => {document.querySelector("#search-button").onclick = searchButtonClicked};
 
-         let searchTerm = "";
-         let sortType = "";
-         let cardColor = "";
-         let cardType = "";
-         let cardLimit;
-         let cardData;
+        let searchTerm = "";
+        let sortType = "";
+        let cardColor = "";
+        let cardType = "";
+        let cardLimit;
+        let cardData;
 
-         function searchButtonClicked(){
+        function searchButtonClicked(){
             //console.log("searchButtonClicked() called");
 
             const SCRYFALL_URL = "https://api.scryfall.com/cards/search?order=";
@@ -268,7 +268,7 @@
             //calling getData method 
             getData(url);
 
-         }
+        }
         //getting data from api
         function getData(url){
             let xhr = new XMLHttpRequest();
@@ -333,11 +333,10 @@
                 }
                 
               // console.log(smallURL);
-              console.log(anotherurl);
+                console.log(anotherurl);
                //console.log(name);
-              
-
-                //13
+            
+               //adding cards to content
                 let line = `
                 <div class = 'card'>
                     <a target='_blank' href='${cardLink}'> ${card.name}</a>
@@ -352,6 +351,76 @@
             document.querySelector("#results").innerHTML =  `A total of ${cardData} card(s) were found`;
 
         }
+
+        //DOM references
+        const searchTermField = document.querySelector("#term");
+        const limitSelect = document.querySelector("#limit");
+        const sortSelect = document.querySelector("#sorts");
+        const colorSelect = document.querySelector("#colors");
+        const typeSelect = document.querySelector("#types");
+        const status = document.querySelector("#status");
+
+        //prefixes and keys
+        const prefix = "tp5262- ";
+        const searchKey = prefix + "search-term";
+        const limitKey = prefix + "number-of-cards";
+        const sortKey = prefix + "sort-type";
+        const colorKey = prefix + "color";
+        const typeKey = prefix + "card-type";
+
+        //function for onchange adds to local storgate, setting variables
+        searchTermField.onchange = function (e) {
+            localStorage.setItem(searchKey, e.target.value);
+            status.innerHTML = `Term Saved "${e.target.value}"`;
+        }
+
+        limitSelect.onchange = function (e) {
+            localStorage.setItem(limitKey, e.target.value);
+            status.innerHTML = `Card limit Saved "${e.target.value}"`;
+        }
+
+        sortSelect.onchange = function (e) {
+            localStorage.setItem(sortKey, e.target.value);
+            status.innerHTML = `Sort type Saved "${e.target.value}"`;
+        }
+
+        colorSelect.onchange = function (e) {
+            localStorage.setItem(colorKey, e.target.value);
+            status.innerHTML = `Color Saved "${e.target.value}"`;
+        }
+
+        typeSelect.onchange = function (e) {
+            localStorage.setItem(typeKey, e.target.value);
+            status.innerHTML = `Card type Saved "${e.target.value}"`;
+        }
+
+        //getting from local storgate getting input
+        const storedTerm = localStorage.getItem(searchKey);
+        const storedLimit = localStorage.getItem(limitKey);
+        const storedSort = localStorage.getItem(sortKey);
+        const storedColor = localStorage.getItem(colorKey);
+        const storedType = localStorage.getItem(typeKey);
+
+
+        //saving the input from local storage
+        if( storedTerm ){
+            searchTermField.value = storedTerm;
+        }
+        if( storedLimit ){
+            limitSelect.value = storedLimit;
+        }
+        if( storedSort ){
+            sortSelect.value = storedSort;
+        }
+        if( storedColor ){
+            colorSelect.value = storedColor;
+        }
+        if( storedType ){
+            typeSelect.value = storedType;
+        }
+
+
+
 
     </script>
     
