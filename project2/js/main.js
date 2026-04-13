@@ -88,32 +88,36 @@
         function dataLoaded(e){
             let xhr = e.target;
 
-            let data = JSON.parse(xhr.responseText);
+            let cardList = JSON.parse(xhr.responseText);
 
-            if(!data.data || data.length == 0 ){
+            if(!cardList.data || cardList.length == 0 ){
                 document.querySelector("#status").innerHTML = `<h3>No results were found for searched term of ${searchTerm.toUpperCase()} of 
                 ${cardColor.toUpperCase()} color and 
                 ${cardType.toUpperCase()} type. Please try different search.</3>`;
+                document.querySelector("#content").innerHTML  = "";
             }
 
             //reference to data object data
-            let results = data.data;
+            let results = cardList.data;
 
             cardData = results.length;
 
             let bigstring = "";
 
-            if(cardLimit == "all"){
-                cardLimit = cardData;
-            }
-
-
             for(let i = 0; i < cardLimit; i++){
+                if(i >= cardList.total_cards){
+                    break;
+                }
                 let card = results[i];
-
-                //replacing spaces with +
-                let name = card.name;
-                 //console.log(name);
+                let name;
+                
+                try{
+                    name = card.name;
+                }
+                catch(error){
+                    console.log("error 1 caught");
+                    name = "";
+                }
                 //fixing names that contain //
                 if(name.indexOf("/") !== -1){
                     name = name.substring(0, name.indexOf("/"));
@@ -125,28 +129,45 @@
 
                 //finds the image through the exact card name
                 let smallURL = "https://api.scryfall.com/cards/named?exact=" + cleanName + "&format=image";
-                let cardLink = "https://scryfall.com/card/" + card.set + "/" + card.collector_number+ "/"+ cleanName;
+                let cardLink;
+                let anotherurl;
 
-                let anotherurl = card['image_uris'];
+                try{
+                    cardLink = "https://scryfall.com/card/" + card.set + "/" + card.collector_number+ "/"+ cleanName;
+                    anotherurl = card['image_uris'];
+                }
+                catch(error){
+                    console.log("error 2 caught");
+                    cardLink = "";
+                    anotherurl = ""
+                }
 
                 if(anotherurl){
                     smallURL = card['image_uris']['png'];
                 }
                 
                 console.log(anotherurl);
+
+                let line;
+
+                if(name != ""){
+                    line = `
+                        <div class = 'card'>
+                            <a target='_blank' href='${cardLink}'> ${name}</a>
+                            <img src='${smallURL}' title = '${card.name}' /> 
+                        </div>`;
+                }
+                else{
+                    line = "";
+                }
             
                //adding cards to content
-                let line = `
-                <div class = 'card'>
-                    <a target='_blank' href='${cardLink}'> ${name}</a>
-                    <img src='${smallURL}' title = '${card.name}' /> 
-                </div>`;
                 
                 bigstring += line; 
             }
 
             document.querySelector("#content").innerHTML = bigstring;
-            document.querySelector("#results").innerHTML =  `A total of ${cardData} card(s) were found`;
+            document.querySelector("#results").innerHTML =  `A total of ${cardList.total_cards} card(s) were found`;
 
         }
 
@@ -224,7 +245,7 @@
 
 
             acc.addEventListener("click", function() {
-            console.log("clicking works");
+
             if (filters.style.display === "flex") {
                 filters.style.display = "none";
             } 
