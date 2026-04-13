@@ -2,6 +2,7 @@
 
         window.onload = (e) => {document.querySelector("#search-button").onclick = searchButtonClicked};
 
+        //global scope variables
         let searchTerm = "";
         let sortType = "";
         let cardColor = "";
@@ -9,8 +10,10 @@
         let cardLimit;
         let cardData;
 
+        //search button function
         function searchButtonClicked(){
 
+            //the search link starting with order of cards
             const SCRYFALL_URL = "https://api.scryfall.com/cards/search?order=";
 
             let url = SCRYFALL_URL;
@@ -35,7 +38,7 @@
                 url += "&q=fo:" + term;
             }
 
-            //adding a limtit check with proffessor since it seems the scryfall api doesnt have a limit
+            //adding a limit check with for loop at the end since it seems the scryfall api doesnt have a limit command in url
             let limit = document.querySelector("#limit").value;
             cardLimit = limit;
 
@@ -44,6 +47,7 @@
             let color = document.querySelector("#colors").value;
             cardColor = color;
 
+            //checking if user did choose a color or not
             if(cardColor != 'none'){
                 url += "+c:" + cardColor;
             }
@@ -52,13 +56,14 @@
             let type = document.querySelector("#types").value;
             cardType = type;
 
+            //checking if user did choose a card type or not
             if(cardType != 'none'){
                 url += "+t:" + cardType;
             }
 
             //updating status
             document.querySelector("#status").innerHTML = `<h3>
-            Searching in order of ${sortType.toUpperCase()} for 
+            Searching for a card that contains ${term.toUpperCase()} in order of ${sortType.toUpperCase()} for 
             ${cardColor.toUpperCase()} colored cards of ${cardType.toUpperCase()} type </h3>`;
 
             //calling getData method 
@@ -70,6 +75,7 @@
             let xhr = new XMLHttpRequest();
 
             xhr.onload = dataLoaded;
+
             xhr.onerror = (e) => {
                 console.log("an error has happened");
             }
@@ -150,7 +156,7 @@
         const sortSelect = document.querySelector("#sorts");
         const colorSelect = document.querySelector("#colors");
         const typeSelect = document.querySelector("#types");
-        const status = document.querySelector("#status");
+        //const status = document.querySelector("#status");
 
         //prefixes and keys
         const prefix = "tp5262- ";
@@ -183,7 +189,7 @@
 
         typeSelect.onchange = function (e) {
             localStorage.setItem(typeKey, e.target.value);
-           // status.innerHTML = `Card type Saved "${e.target.value}"`;
+            //status.innerHTML = `Card type Saved "${e.target.value}"`;
         }
 
         //getting from local storgate getting input
