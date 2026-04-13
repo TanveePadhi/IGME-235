@@ -11,7 +11,7 @@ let assets;
 
 // game variables
 let startScene;
-let gameScene, ship, scoreLabel, lifeLabel, shootSound, hitSound, fireballSound;
+let gameScene, ship, scoreLabel, lifeLabel, shootSound, hitSound, fireballSound, gameOverScoreLabel;
 let gameOverScene;
 
 let circles = [];
@@ -188,6 +188,18 @@ async function setup() {
     gameOverText.y = sceneHeight / 2 - 160;
     gameOverScene.addChild(gameOverText);
 
+    gameOverScoreLabel = new PIXI.Text({text: "", 
+        style: {
+            fill: 0xffffff,
+            fontSize: 34,
+            fontFamily: "Futura",
+            stroke: { color: 0xff0000, width: 6 },
+        }
+    });
+    gameOverScoreLabel.x = (sceneWidth / 2) - (gameOverScoreLabel.width / 2) -120;
+    gameOverScoreLabel.y = sceneHeight / 2 + 40;
+    gameOverScene.addChild(gameOverScoreLabel);
+
     // 3B - make "play again?" button
     let playAgainButton = new PIXI.Text({ text: "Play Again?", style: buttonStyle });
     playAgainButton.x = sceneWidth / 2 - playAgainButton.width / 2;
@@ -250,6 +262,8 @@ function loadLevel(){
 function end(){
     paused = true;
 
+    gameOverScoreLabel.text = `Your final score: ${score}`;
+
     circles.forEach((c) => gameScene.removeChild(c));
     circles = [];
 
@@ -267,6 +281,26 @@ function end(){
 
 function fireBullet(){
     if(paused) return;
+
+    // 3 bullets vs 1 bullet power
+    if(score >= 5){
+        let b1 = new Bullet(0xffffff, ship.x - 10, ship.y);
+        let b2 = new Bullet(0xffffff, ship.x, ship.y);
+        let b3 = new Bullet(0xffffff, ship.x + 10, ship.y);
+        bullets.push(b1);
+        bullets.push(b2);
+        bullets.push(b3);
+        gameScene.addChild(b1);
+        gameScene.addChild(b2);
+        gameScene.addChild(b3);
+        shootSound.play();
+    }
+    else{
+        let b = new Bullet(0xffffff, ship.x, ship.y);
+        bullets.push(b);
+        gameScene.addChild(b);
+        shootSound.play();
+    }
 
     let b = new Bullet(0xffffff, ship.x, ship.y);
     bullets.push(b);
