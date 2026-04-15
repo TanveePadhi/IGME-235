@@ -7,6 +7,8 @@
         let sortType = "";
         let cardColor = "";
         let cardType = "";
+        let cardRarity = "";
+        let cardLang = "";
         let cardLimit;
         let cardData;
 
@@ -61,10 +63,26 @@
                 url += "+t:" + cardType;
             }
 
+            //adding a card rarity
+            let rarity = document.querySelector("#rarities").value;
+            cardRarity = rarity;
+
+            if(cardRarity != 'none'){
+                url += "+r:" + cardRarity;
+            }
+
+            //adding a card language
+            let lang = document.querySelector("#langs").value;
+            cardLang = lang;
+
+            if(cardLang != 'none'){
+                url += "+lang:" + cardLang;
+            }
+
             //updating status
             document.querySelector("#status").innerHTML = `<h3>
             Searching for a card that contains ${term.toUpperCase()} in order of ${sortType.toUpperCase()} for 
-            ${cardColor.toUpperCase()} colored cards of ${cardType.toUpperCase()} type </h3>`;
+            ${cardColor.toUpperCase()} colored cards of ${cardType.toUpperCase()} type and of ${cardRarity.toUpperCase()} rarity.</h3>`;
 
             //calling getData method 
             getData(url);
@@ -167,7 +185,7 @@
             }
 
             document.querySelector("#content").innerHTML = bigstring;
-            document.querySelector("#results").innerHTML =  `A total of ${cardList.total_cards} card(s) were found`;
+            document.querySelector("#results").innerHTML =  `A total of ${cardList.total_cards} card(s) were found. You chose to display ${cardLimit} `;
 
         }
 
@@ -177,6 +195,8 @@
         const sortSelect = document.querySelector("#sorts");
         const colorSelect = document.querySelector("#colors");
         const typeSelect = document.querySelector("#types");
+        const raritySelect = document.querySelector("#rarities");
+        const langSelect = document.querySelector("#langs");
         //const status = document.querySelector("#status");
 
         //prefixes and keys
@@ -186,6 +206,8 @@
         const sortKey = prefix + "sort-type";
         const colorKey = prefix + "color";
         const typeKey = prefix + "card-type";
+        const rarityKey = prefix + "card-rarity";
+        const langKey = prefix + "language";
 
         //function for onchange adds to local storgate, setting variables
         searchTermField.onchange = function (e) {
@@ -213,12 +235,24 @@
             //status.innerHTML = `Card type Saved "${e.target.value}"`;
         }
 
+        raritySelect.onchange = function (e) {
+            localStorage.setItem(rarityKey, e.target.value);
+            //status.innerHTML = `Card type Saved "${e.target.value}"`;
+        }
+
+        langSelect.onchange = function (e) {
+            localStorage.setItem(langKey, e.target.value);
+            //status.innerHTML = `Card type Saved "${e.target.value}"`;
+        }
+
         //getting from local storgate getting input
         const storedTerm = localStorage.getItem(searchKey);
         const storedLimit = localStorage.getItem(limitKey);
         const storedSort = localStorage.getItem(sortKey);
         const storedColor = localStorage.getItem(colorKey);
         const storedType = localStorage.getItem(typeKey);
+        const storedRarity = localStorage.getItem(rarityKey);
+        const storedLang = localStorage.getItem(langKey);
 
 
         //saving the input from local storage
@@ -236,6 +270,12 @@
         }
         if( storedType ){
             typeSelect.value = storedType;
+        }
+        if( storedRarity ){
+            raritySelect.value = storedRarity;
+        }
+        if( storedLang ){
+            langSelect.value = storedLang;
         }
 
         //making the accordion function for mobile version

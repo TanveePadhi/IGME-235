@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation for Project 2</title>
+</head>
+<body>
+    <h1>Documentation</h1>
+    <h3>First Iteration</h3>
+    <p>The main idea I have for the Maigic the Gathering Api is to set it up as the title 
+        at the very top. A rectangle of filters either drop down menu style of radio like
+        from a web lab we did.
+
+        Then I want the content to show the cards limiting it to like 20-30 per page and add
+        pages so the users don't scroll forever since there ate 600k cards in Magic the 
+        gathering
+    </p>
+
+    <h3>Second Iteration</h3>
+    <p>So I was looking at the api and I don't really understand how to search. I couldn't find
+        the abbreviations or way sto filter the search let alone how to abstract the data. Should 
+        I download everything and just search manually? or find a way to access all the data via bulk-data?
+    </p>
+    <p>I tested downloading the cards as a JSON file. That's not going to work. The file alone is 2.5GB. Just loading the
+        page causes the site to crash because of how big the file is. Using teh weblink would be the best way to access
+        the cards.
+    </p>
+    <h3>Third Iteration</h3>
+    <p>I was able to figure out how to get the search links and I found a page that tells me how to filter the cards. The age was hidden
+        in the card's card/search sub page and clicking the first link that says fulltext search system. I tested different types of
+        searched in hoppschotch and it seems to all work. I got a lot of the programming done focuing more on the
+        functionality rather than the css to style everything.
+    </p>
+    <p>After setting up the drop down menus and making searches I needed to access the images. Just getting the image alone was difficult since
+        there were different types and I couldn't access the images_uris array that each object had. So I looked into other ways to get the 
+        images and I found a way to get th eimage via it's exact name which was easy to obbtain but the issue then was the fact the the exact name 
+        sometimes contained synbols, letters in different languages and two names of the image. I filtered through the name a couple of times
+        through mutiple iterations. I got to the point where most worked but the names that had an em dash wouldn't work. Since I knew some images would not
+        show and that they existed I added a link above the card that would go to the card's page so user's could still access the card information and have 
+        a way to see the card without seeming like the image did not exists
+    </p>
+
+    <h3>Fourth Iteration</h3>
+    <p>I didn't like that a good chuck of images were not being shown so I looked more indepth as to why some images were not working and I tested why the images_uris was not
+        working for some images and I found out that some images just did not have that property but most did. So I first checked if the card had that property and if it did I 
+        would use that property and if not I'd use the exact name to get the image. That fixed majority of the cards, when I tested certain filters I didn't get a wall of default 
+        image icons so I felt good that I solved it. I occationally did see the default imag icon but becuase I saw it rarely I felt like since the majority was shown it should be 
+        okay for now. 
+    </p>
+
+     <h3>Fifth Iteration</h3>
+     <p>Since I got the filters to search and show images to work and the basic functionality was working I felt it was time to move on to styling. I looked up fantasy color paletts to
+        refer to and used one I found using pinks, beige and blues. I also looked into fonts that were fantasy themed.
+     </p>
+
+     <h3>Sixth Iteration</h3>
+     <p>Since most of it was competed I needed to add the DOM references and make sure the serches saved ontop local storage. I compelted all of it refering to the demo we did in class.
+        I also made it responsive to mobile since I wanted an accordion like button function. I ended up switching form default desktop tp default to mobile because I wanted to hide and 
+        unhide the filter div.
+     </p>
+
+     <h3>Sevent Iteration</h3>
+     <p>After hearing the feedback I got in class I make he title stand out more by adding a backgrounf shadow and making it bigger. I amde the filter labels bigger and darker since they were hard to see.
+        As well as increasing teh size of the search buttons ince it was really small. I fixed the display for cards since it would break when there was less than 5 cards making the link overflow the container.
+        And since I added more filters the container for the filters was overflwoing. I was able to fix the conatiner of the card by setting it to a set width. For the filters I made it into a simailr grid like style
+        like the #content section that was auto responsive.
+     </p>
+     <p>I also added a few more filters since I had the time for rarity and language of the cards.</p>
+    
+</body>
+</html>

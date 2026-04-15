@@ -13,9 +13,11 @@
             text-align: center;
         }
         h1{
-            font-size: 3em;
+            font-size: 4em;
             letter-spacing: 2px;
             line-height: 2em;
+            text-shadow: 3px 3px rgb(31, 12, 92);
+            color:#f2d3c0;
         }
         h2{
             font-size: 2em;
@@ -32,9 +34,9 @@
             display: block;
             background-color: #8b7983;
             border-bottom-style: 10px solid #181923;
-            color:#373845; 
+            color:#20223e; 
             cursor:grab;
-            padding: 10px;
+            padding: 3px;
             width: 100%;
             text-align: center;
             font-size: 2em;
@@ -56,21 +58,21 @@
             border: 1px solid #6f6e6e;  
             padding: 10px;                         
             margin: 0 auto;     
-            color:#373845;   
+            color:#191c4a;   
             font-weight: 600; 
             box-sizing: border-box; 
         }
 
         #widgets p{
             margin: 5px;
+            font-size: 1.25em;
         }
 
         #widgets div{
             display: flex;
             flex-direction: column;
             padding: 10px;
-            text-align: center;
-            width: 80%;   
+            text-align: center; 
         }
         #content{
             display: grid;
@@ -79,12 +81,12 @@
             margin: 0 auto;
             gap: 40px 10px;
 			text-align: center;
-        
         }
 
-        #term, #limit, #sorts, #colors, #types{
+        #term, #limit, #sorts, #colors, #types, #rarities, #langs{
             font-family:'Courier New', Courier, monospace;
             font-weight:550;
+            width: 100px;
         } 
 
         #search-button button{
@@ -95,16 +97,19 @@
             padding: 10px;
             text-align: center;
             display: inline-block;
-            font-family: fantasy;
-            font-size: 16px;
+            font-family: "Balthazar", fantasy;
+            font-size: 30px;
             cursor: pointer;
+        }
+
+        .card{
+            width: 200px;
         }
 
         .card img{
             width: 200px;
             padding: 10px
         }
-
 
         a:link{
             color: #e18f89;
@@ -135,12 +140,16 @@
 
 
             #widgets{
-                display: flex !important;
-                flex-direction: row;
+                display: grid !important;
+                grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
                 border-radius: 20px;    
                 background-color: #8b7983;  
                 width: 95%; 
                 
+            }
+
+            #widgets div{
+                margin: 5px;
             }
                     
             #widgets div select,input{

@@ -11,163 +11,7 @@
 
     <link rel="stylesheet" href="css/main.css">
 </head>
-<!--
-    <style>
 
-        /*MOBILE*/
-
-        *{
-            margin: 0 auto;
-            font-family: "Balthazar", fantasy;
-            font-weight: 400;
-            font-style: normal;
-            box-sizing: border-box;
-        }
-        body{
-            background-color: #38405d;
-            color: #b59e90;
-            text-align: center;
-        }
-        h1{
-            font-size: 3em;
-            letter-spacing: 2px;
-            line-height: 2em;
-        }
-        h2{
-            font-size: 2em;
-            letter-spacing: 1px;
-            line-height: 1.5em;
-        }
-        h3{
-            font-size: 1.3em;
-            letter-spacing: 1px;
-            line-height: 1.5em;
-        }
-
-        .accordion {
-            display: block;
-            background-color: #8b7983;
-            border-bottom-style: 10px solid #181923;
-            color:#373845; 
-            cursor:grab;
-            padding: 10px;
-            width: 100%;
-            text-align: center;
-            font-size: 2em;
-            transition: 0.4s;
-            font-weight: 600;
-            letter-spacing: 2px;
-        }
-
-        .active, .accordion:hover {
-                background-color: #b8a5af;
-            }
-        #widgets{
-            display:flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 100%;
-            border-radius: 0px;
-            background-color: #cbc0c6;
-            border: 1px solid #6f6e6e;  
-            padding: 10px;                         
-            margin: 0 auto;     
-            color:#373845;   
-            font-weight: 600; 
-            box-sizing: border-box; 
-        }
-
-        #widgets p{
-            margin: 5px;
-        }
-
-        #widgets div{
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-            text-align: center;
-            width: 80%;   
-        }
-        #content{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-            width:90%;
-            margin: 0 auto;
-            gap: 40px 10px;
-			text-align: center;
-        
-        }
-
-        #term, #limit, #sorts, #colors, #types{
-            font-family:'Courier New', Courier, monospace;
-            font-weight:550;
-        } 
-
-        #search-button button{
-            background-color: #6f687a;
-            border-top-style: 2px solid #181923;
-            border-left-style: 2px solid #181923;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            display: inline-block;
-            font-family: fantasy;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .card img{
-            width: 200px;
-            padding: 10px
-        }
-
-
-        a:link{
-            color: #e18f89;
-        }
-        a:visited{
-            color:#a2b3b2;
-        }
-        a:focus{
-            color:#e8e3e3
-        }
-        a:hover{
-            color:#a53551;
-        }
-        a:active{
-            color:#e1c0a9;
-        }
-
-        #results{
-            margin: 20px;
-        }
-
-        #status{
-            padding:10px;
-        }
-
-        /*DESKTOP*/
-        @media screen and (min-width:769px) {
-
-
-            #widgets{
-                display: flex !important;
-                flex-direction: row;
-                border-radius: 20px;    
-                background-color: #8b7983;  
-                width: 95%; 
-                
-            }
-                    
-            #widgets div select,input{
-                order:-1;
-            }
-            .accordion{
-                display: none;
-            }
-            
-        }
-    </style> -->
 <body>
 
     <header> 
@@ -236,9 +80,48 @@
             </select>
         </div>
 
-            <div id="search-button">
+        <div class="card-rarity">
+            <p>Card Rarities</p>
+            <select id="rarities">
+                <option value="none">None</option>
+                <option value="common">Common</option>
+                <option value="uncommon">Uncommon</option>
+                <option value="rare">Rare</option>
+                <option value="special">Special</option>
+                <option value="mythic">Mythic</option>
+                <option value="bonus">Bonus</option>
+            </select>
+        </div>
+
+        <div class="card-language">
+            <p>Card Language</p>
+            <select id="langs">
+                <option value="none">None</option>
+                <option value="en">English</option>
+                <option value="ja">Japanese</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="es">Spanish</option>
+                <option value="it">Italian</option>
+                <option value="zhs">Simple Chinese</option>
+                <option value="pt">Portuguesus</option>
+                <option value="zht">Chinese</option>
+                <option value="ru">Russian</option>
+                <option value="hr">Korean</option>
+                <option value="ph">Phyrexian</option>
+                <option value="qya">Quenya</option>
+                <option value="grc">Ancient Greek</option>
+                <option value="he">Hebrew</option>
+                <option value="la">Latin</option>
+                <option value="ar">Arabic</option>
+                <option value="sa">Sanskrit</option>
+
+            </select>
+        </div>
+
+        <div id="search-button">
             <button>Search</button>
-            </div>
+        </div>
     </div>
 
 
@@ -250,242 +133,11 @@
     <div id="content">
     </div>
 
+    <footer>
+        <p>&copy Tanvee Padhi 2026</p>
+    </footer>
+
     <script src="js/main.js"></script> 
-<!--
-    <script>
-        "use strict";
-
-        window.onload = (e) => {document.querySelector("#search-button").onclick = searchButtonClicked};
-
-        let searchTerm = "";
-        let sortType = "";
-        let cardColor = "";
-        let cardType = "";
-        let cardLimit;
-        let cardData;
-
-        function searchButtonClicked(){
-
-            const SCRYFALL_URL = "https://api.scryfall.com/cards/search?order=";
-
-            let url = SCRYFALL_URL;
-
-            //adding a sort type
-            let sort = document.querySelector("#sorts").value;
-            sortType = sort;
-
-            url += sortType;
-
-            //retrieving search term from search bar
-            let term = document.querySelector("#term").value
-            searchTerm = term;
-
-            term.trim();
-
-            //handleing empty search bar
-            if(!term) {
-                url += "&q=";
-            }
-            else{
-                url += "&q=fo:" + term;
-            }
-
-            //adding a limtit check with proffessor since it seems the scryfall api doesnt have a limit
-            let limit = document.querySelector("#limit").value;
-            cardLimit = limit;
-
-
-            //adding a color
-            let color = document.querySelector("#colors").value;
-            cardColor = color;
-
-            if(cardColor != 'none'){
-                url += "+c:" + cardColor;
-            }
-
-            //adding a card type
-            let type = document.querySelector("#types").value;
-            cardType = type;
-
-            if(cardType != 'none'){
-                url += "+t:" + cardType;
-            }
-
-            //updating status
-            document.querySelector("#status").innerHTML = `<h3>
-            Searching in order of ${sortType.toUpperCase()} for 
-            ${cardColor.toUpperCase()} colored cards of ${cardType.toUpperCase()} type </h3>`;
-
-            //calling getData method 
-            getData(url);
-
-        }
-        //getting data from api
-        function getData(url){
-            let xhr = new XMLHttpRequest();
-
-            xhr.onload = dataLoaded;
-            xhr.onerror = (e) => {
-                console.log("an error has happened");
-            }
-
-            xhr.open("GET", url);
-            xhr.send();           
-
-            }
-
-        function dataLoaded(e){
-            let xhr = e.target;
-
-            let data = JSON.parse(xhr.responseText);
-
-            if(!data.data || data.length == 0 ){
-                document.querySelector("#status").innerHTML = `<h3>No results were found for searched term of ${searchTerm.toUpperCase()} of 
-                ${cardColor.toUpperCase()} color and 
-                ${cardType.toUpperCase()} type. Please try different search.</3>`
-            }
-
-            //reference to data object data
-            let results = data.data;
-
-            cardData = results.length;
-
-            let bigstring = "";
-
-            if(cardLimit == "all"){
-                cardLimit = cardData;
-            }
-
-
-            for(let i = 0; i < cardLimit; i++){
-                let card = results[i];
-
-                //replacing spaces with +
-                let name = card.name;
-                 //console.log(name);
-                //fixing names that contain //
-                if(name.indexOf("/") !== -1){
-                    name = name.substring(0, name.indexOf("/"));
-                }
-
-                //removes all special characters except em dash
-                let cleanName = name.replaceAll(/[^\w\s]|_/g, "");
-            
-
-                //finds the image through the exact card name
-                let smallURL = "https://api.scryfall.com/cards/named?exact=" + cleanName + "&format=image";
-                let cardLink = "https://scryfall.com/card/" + card.set + "/" + card.collector_number+ "/"+ cleanName;
-
-                let anotherurl = card['image_uris'];
-
-                if(anotherurl){
-                    smallURL = card['image_uris']['png'];
-                }
-                
-                console.log(anotherurl);
-            
-               //adding cards to content
-                let line = `
-                <div class = 'card'>
-                    <a target='_blank' href='${cardLink}'> ${name}</a>
-                    <img src='${smallURL}' title = '${card.name}' /> 
-                </div>`;
-                
-                bigstring += line; 
-            }
-
-            document.querySelector("#content").innerHTML = bigstring;
-            document.querySelector("#results").innerHTML =  `A total of ${cardData} card(s) were found`;
-
-        }
-
-        //DOM references
-        const searchTermField = document.querySelector("#term");
-        const limitSelect = document.querySelector("#limit");
-        const sortSelect = document.querySelector("#sorts");
-        const colorSelect = document.querySelector("#colors");
-        const typeSelect = document.querySelector("#types");
-        const status = document.querySelector("#status");
-
-        //prefixes and keys
-        const prefix = "tp5262- ";
-        const searchKey = prefix + "search-term";
-        const limitKey = prefix + "number-of-cards";
-        const sortKey = prefix + "sort-type";
-        const colorKey = prefix + "color";
-        const typeKey = prefix + "card-type";
-
-        //function for onchange adds to local storgate, setting variables
-        searchTermField.onchange = function (e) {
-            localStorage.setItem(searchKey, e.target.value);
-            status.innerHTML = `Term Saved "${e.target.value}"`;
-        }
-
-        limitSelect.onchange = function (e) {
-            localStorage.setItem(limitKey, e.target.value);
-            status.innerHTML = `Card limit Saved "${e.target.value}"`;
-        }
-
-        sortSelect.onchange = function (e) {
-            localStorage.setItem(sortKey, e.target.value);
-            status.innerHTML = `Sort type Saved "${e.target.value}"`;
-        }
-
-        colorSelect.onchange = function (e) {
-            localStorage.setItem(colorKey, e.target.value);
-            status.innerHTML = `Color Saved "${e.target.value}"`;
-        }
-
-        typeSelect.onchange = function (e) {
-            localStorage.setItem(typeKey, e.target.value);
-            status.innerHTML = `Card type Saved "${e.target.value}"`;
-        }
-
-        //getting from local storgate getting input
-        const storedTerm = localStorage.getItem(searchKey);
-        const storedLimit = localStorage.getItem(limitKey);
-        const storedSort = localStorage.getItem(sortKey);
-        const storedColor = localStorage.getItem(colorKey);
-        const storedType = localStorage.getItem(typeKey);
-
-
-        //saving the input from local storage
-        if( storedTerm ){
-            searchTermField.value = storedTerm;
-        }
-        if( storedLimit ){
-            limitSelect.value = storedLimit;
-        }
-        if( storedSort ){
-            sortSelect.value = storedSort;
-        }
-        if( storedColor ){
-            colorSelect.value = storedColor;
-        }
-        if( storedType ){
-            typeSelect.value = storedType;
-        }
-
-        //making the accordion function for mobile version
-
-        let acc = document.querySelector(".accordion");
-        let filters = document.querySelector("#widgets");
-
-        if(acc.style.display != "none"){
-            acc.addEventListener("click", function() {
-            console.log("clicking works");
-            if (filters.style.display === "flex") {
-                filters.style.display = "none";
-            } 
-            else {
-                filters.style.display = "flex";
-            }
-        });
-        }
-
-
-
-    </script> -->
     
 </body>
 </html>
