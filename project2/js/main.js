@@ -84,6 +84,9 @@
             Searching for a card that contains ${term.toUpperCase()} in order of ${sortType.toUpperCase()} for 
             ${cardColor.toUpperCase()} colored cards of ${cardType.toUpperCase()} type and of ${cardRarity.toUpperCase()} rarity.</h3>`;
 
+            //loading bar
+
+            document.querySelector("#content").innerHTMLHTML = `<img src="gif/loading-bar.gif" alt="loading">`;
             //calling getData method 
             getData(url);
 

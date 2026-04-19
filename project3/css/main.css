@@ -1,0 +1,30 @@
+*{
+    margin: auto 0;
+}
+
+#header{
+    background-color: rgba(0, 255, 255, 0.692);
+    grid-area: header;
+}
+
+#navbar{
+    background-color:rgba(183, 131, 232, 0.766);
+    grid-area: navbar;
+}
+
+#game-panel{
+    background-color:rgba(106, 220, 151, 0.769);
+    grid-area: game;
+    text-align: center;
+}
+
+body{
+    display:grid;
+
+    grid-template-columns: 2fr 10fr;
+    grid-template-rows: 1fr 11fr;
+
+    grid-template-areas: "header header"
+                        "navbar game"
+                        "navbar game";
+}
