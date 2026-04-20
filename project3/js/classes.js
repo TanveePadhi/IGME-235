@@ -1,6 +1,6 @@
 
 class Player extends PIXI.Graphics {
-  constructor(radius = 10, color = 0xff0000, x = 0, y = 0, speed = 100) {
+    constructor(radius = 10, color = 0xfa668b, x = 0, y = 0, speed = 100) {
     super();
     this.radius = radius;
     this.x = x;
@@ -14,25 +14,26 @@ class Player extends PIXI.Graphics {
     this.dy = 0; // per second
     this.lives = 3;
     this.attack = false;
-  }
+    }
 
-  update(dt) {
+    update(dt) {
     this.x += this.dx * dt;
     this.y += this.dy * dt;
-  }
+    }
 }
 
 class Crystal extends PIXI.Graphics{
-    constructor(width=5, height=10, color, x, y){
+    constructor(color, x = 0, y = 0, width = 5, height = 10){
         super();
         this.width = width;
         this.height = height;
         this.x = x;
         this.y = y;
-        this.rectangle(x,y,width,height);
+        this.rect(x,y,width,height);
         this.fill(color);
         this.collected = false;
         this.special = false;
+        this.isAlive = true;
     }
 }
 

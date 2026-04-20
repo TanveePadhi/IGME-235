@@ -11,11 +11,16 @@ let startButton, tutorialButton;
 let startSprite, tutorialSprite;
 let tutorialPressed = false;
 let scoreLabel, lifeLabel, killLabel;
-let score, life, kills;
+let score, kills;
+let life = 3;
+
+let paused;
 
 let player;
 let crystals = [];
 let goblins = [];
+
+let levelNum = 1;
 
 //all variables needed for the game
 
@@ -44,7 +49,7 @@ async function setup(){
     //anchor poiint
     startButton.anchor.set(0.5);
     //location
-    startButton.x = 320;
+    startButton.x = 350;
     startButton.y = 260;
 
     //allowing interactions
@@ -76,7 +81,7 @@ async function setup(){
     //button properties being set
     tutorialButton.scale.set(0.3);
     tutorialButton.anchor.set(0.5);
-    tutorialButton.x = 300;
+    tutorialButton.x = 330;
     tutorialButton.y = 400;
 
     //allowin interactions
@@ -125,8 +130,11 @@ async function setup(){
     })
 
     //creating player
-    player = new Player(10, 0x112233,0,0,75);
+    player = new Player(20, 0xfa668b,0,0,200);
     gameScene.addChild(player);
+
+    app.ticker.add(gameLoop);
+
 
 }
 
@@ -173,20 +181,20 @@ function createLabels(){
     scoreLabel.x = 5;
     scoreLabel.y = 5;
     gameScene.addChild(scoreLabel);
-    //increaseScoreBy(0);
+    increaseScoreBy(0);
 
 
     lifeLabel = new PIXI.Text({text: "l", style: scoreText});
     lifeLabel.x = 5;
     lifeLabel.y = 26;
     gameScene.addChild(lifeLabel);
-    //decreaseLifeBy(0);
+    decreaseLifeBy(0);
 
     killLabel = new PIXI.Text({text: "k", style: scoreText});
     killLabel.x = 5;
     killLabel.y = 50;
     gameScene.addChild(killLabel);
-    //increaseScoreBy(0);
+    increaseKillScore(0);
 
     //gameover scene text
     let gameOverText = new PIXI.Text({
@@ -213,10 +221,121 @@ function startGame(){
 
     //initializing all scores
     score = 0;
-    life = 3;
     kills = 0;
+    life = 3;
+    levelNum = 1;
+    player.x = 100;
+    player.y = 50;
+
+    //load the level or map
+    loadLevel();
+
+    setTimeout(() => {
+        paused = false;
+    }, 50);
+}
+function increaseScoreBy(value){
+    score += value;
+    scoreLabel.text = `Score:   ${score}`;
 }
 
+function increaseKillScore(value){
+    kills += value;
+    killLabel.text = `Kills:    ${kills}`;
+}
+
+function decreaseLifeBy(value){
+    life -= value;
+    life = parseInt(life); //converts to an integer
+    lifeLabel.text = `Life:     ${life}`;
+}
+
+function createCystals(num = 15){
+    for(let i = 0; i < num; i++){
+        let c = new Crystal(0xc2fffd);
+        c.x = Math.random() * (sceneWidth-50) + 25;
+        c.y = Math.random() * (sceneHeight-50) + 25;
+        crystals.push(c);
+        gameScene.addChild(c);
+    }
+
+    for(let j = 0; j < levelNum; j++){
+        let s = new Crystal(0xffba0f);
+        s.special = true;
+        s.x = Math.random() * (sceneWidth-50) + 25;
+        s.y = Math.random() * (sceneHeight-50) + 25;
+        crystals.push(s);
+        gameScene.addChild(s);
+    }
+}
+
+function loadLevel(){
+    console.log(levelNum);
+    createCystals( levelNum * 15);
+}
+function rectsIntersect(a,b){
+		var ab = a.getBounds();
+		var bb = b.getBounds();
+		return ab.x + ab.width > bb.x && ab.x < bb.x + bb.width && ab.y + ab.height > bb.y && ab.y < bb.y + bb.height;
+	}
 function gameLoop(){
-    
+    if (paused) return;
+
+     //frames for second in game time
+    let dt = 1 / app.ticker.FPS;
+    if (dt > 1 / 12) dt = 1 / 12;
+
+    //play movement
+        if (keys[keyboard.RIGHT]) {
+        player.dx = player.speed;
+        } else if (keys[keyboard.LEFT]) {
+        player.dx = -player.speed;
+        } else {
+        player.dx = 0;
+        }
+
+        if (keys[keyboard.DOWN]) {
+        player.dy = player.speed;
+        } else if (keys[keyboard.UP]) {
+        player.dy = -player.speed;
+        } else {
+        player.dy = 0;
+        }
+
+        player.update(dt);
+
+        //keeping theplayer inside the box
+        let w2 = player.width/2;
+        let h2 = player.height/2;
+
+        if(player.x <= 0 ){
+            player.x = sceneWidth - w2;
+        }
+        if(player.x >= sceneWidth){
+            player.x = 0;
+        }
+        if(player.y <= 0){
+            player.y = sceneHeight - h2;
+        }
+        if(player.y >= sceneHeight){
+            player.y = 0;
+        }
+
+        //collision detection
+        for(let c of crystals){
+            if(c.isAlive && rectsIntersect(player, c)){
+                gameScene.removeChild(c);
+                c.isAlive = false;
+                increaseScoreBy(1);
+                break;
+
+            }
+        }
+
+        //starting new level
+        if (score >= (crystals.length)) {
+            levelNum++;
+            loadLevel();
+        }
+
 }
