@@ -215,7 +215,6 @@ async function setup() {
 }
 
 function startGame(){
-    console.log("startGame called");
     startScene.visible = false;
     gameOverScene.visible = false;
     gameScene.visible = true;

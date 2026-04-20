@@ -1,3 +1,5 @@
+
+
 class Ship extends PIXI.Sprite{
     constructor(texture, x = 0, y = 0){
         super(texture);
