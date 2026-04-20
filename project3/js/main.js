@@ -11,10 +11,11 @@ let startButton, tutorialButton;
 let startSprite, tutorialSprite;
 let tutorialPressed = false;
 let scoreLabel, lifeLabel, killLabel;
-let score, kills;
+let score = 0;
+let kills = 0
 let life = 3;
 
-let paused;
+let paused =true;
 
 let player;
 let crystals = [];
@@ -250,6 +251,10 @@ function decreaseLifeBy(value){
     lifeLabel.text = `Life:     ${life}`;
 }
 
+function createGoblins(num){
+   
+}
+
 function createCystals(num = 15){
     for(let i = 0; i < num; i++){
         let c = new Crystal(0xc2fffd);
@@ -323,17 +328,26 @@ function gameLoop(){
 
         //collision detection
         for(let c of crystals){
-            if(c.isAlive && rectsIntersect(player, c)){
+            if(c.special && c.isAlive && rectsIntersect(player, c)){
+                gameScene.removeChild(c);
+                c.isAlive = false;
+                increaseScoreBy(5);
+                break;
+
+            }
+            else if(c.isAlive && rectsIntersect(player, c)){
                 gameScene.removeChild(c);
                 c.isAlive = false;
                 increaseScoreBy(1);
                 break;
-
             }
         }
 
+        //filtering the crystals to fet rids of all that have been collected
+        crystals = crystals.filter((c)=>c.isAlive);
+
         //starting new level
-        if (score >= (crystals.length)) {
+        if (crystals.length == 0) {
             levelNum++;
             loadLevel();
         }

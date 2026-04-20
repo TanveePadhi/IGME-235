@@ -31,21 +31,19 @@ class Crystal extends PIXI.Graphics{
         this.y = y;
         this.rect(x,y,width,height);
         this.fill(color);
-        this.collected = false;
         this.special = false;
         this.isAlive = true;
     }
 }
 
 class Goblin extends PIXI.Graphics{
-    constructor(texture,x,y,speed,color){
+    constructor(texture,x,y,speed = 100){
         super(texture);
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.isalive = true;
         this.fwd = getRandomUnitVector();
-        speed = 50;
     }
     move(dt = 1/60){
         this.x += this.fwd.x * this.speed * dt;

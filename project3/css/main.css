@@ -1,21 +1,25 @@
 *{
     margin: auto 0;
+    border-style: border-box;
 }
 
 #header{
     background-color: rgba(0, 255, 255, 0.692);
     grid-area: header;
+    height: 5vh;
 }
 
 #navbar{
     background-color:rgba(183, 131, 232, 0.766);
     grid-area: navbar;
+    height: 100vh;
 }
 
 #game-panel{
     background-color:rgba(106, 220, 151, 0.769);
     grid-area: game;
     text-align: center;
+    height: 100vh;
 }
 
 body{
@@ -27,4 +31,6 @@ body{
     grid-template-areas: "header header"
                         "navbar game"
                         "navbar game";
+    
+    background-color: gray;
 }
