@@ -1,6 +1,7 @@
 *{
     margin: auto 0;
     border-style: border-box;
+    font-family: monospace;
 }
 
 #header{
@@ -13,6 +14,18 @@
     background-color:rgba(183, 131, 232, 0.766);
     grid-area: navbar;
     height: 100vh;
+}
+
+#navbar div{
+    text-align: center;
+}
+
+#navbar div button{
+    padding: 10px;
+    height: 5vh;
+    width: 100%;
+
+    border-left: 3px solid black;
 }
 
 #game-panel{
