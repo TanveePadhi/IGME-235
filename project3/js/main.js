@@ -252,7 +252,13 @@ function decreaseLifeBy(value){
 }
 
 function createGoblins(num){
-   
+    for(let i = 0; i < num; i++){
+        let g = new Goblin(2);
+        g.x = Math.random() * (sceneWidth-50) + 25;
+        g.y = Math.random() * (sceneHeight-50) + 25;
+        goblins.push(g);
+        gameScene.addChild(g);
+    }
 }
 
 function createCystals(num = 15){
@@ -277,12 +283,25 @@ function createCystals(num = 15){
 function loadLevel(){
     console.log(levelNum);
     createCystals( levelNum * 15);
+    //resets goblins per level
+    for(let g in goblins){
+        gameScene.removeChild(g);
+    }
+    goblins.length = 0
+    createGoblins(levelNum);
+    
+
 }
 function rectsIntersect(a,b){
-		var ab = a.getBounds();
-		var bb = b.getBounds();
+		let ab = a.getBounds();
+		let bb = b.getBounds();
 		return ab.x + ab.width > bb.x && ab.x < bb.x + bb.width && ab.y + ab.height > bb.y && ab.y < bb.y + bb.height;
 	}
+
+function end(){
+    gameOverScene.visible = true;
+    gameScene.visible = false;
+}
 function gameLoop(){
     if (paused) return;
 
@@ -290,13 +309,13 @@ function gameLoop(){
     let dt = 1 / app.ticker.FPS;
     if (dt > 1 / 12) dt = 1 / 12;
 
-    //play movement
+    //player movement
         if (keys[keyboard.RIGHT]) {
-        player.dx = player.speed;
+            player.dx = player.speed;
         } else if (keys[keyboard.LEFT]) {
-        player.dx = -player.speed;
+            player.dx = -player.speed;
         } else {
-        player.dx = 0;
+            player.dx = 0;
         }
 
         if (keys[keyboard.DOWN]) {
@@ -309,7 +328,12 @@ function gameLoop(){
 
         player.update(dt);
 
-        //keeping theplayer inside the box
+        //goblin movement
+        for(let g of goblins){
+            g.move(player.x, player.y);
+        }
+
+        //keeping the player inside the box
         let w2 = player.width/2;
         let h2 = player.height/2;
 
@@ -331,7 +355,7 @@ function gameLoop(){
             if(c.special && c.isAlive && rectsIntersect(player, c)){
                 gameScene.removeChild(c);
                 c.isAlive = false;
-                increaseScoreBy(5);
+                player.attack = true;
                 break;
 
             }
@@ -343,13 +367,35 @@ function gameLoop(){
             }
         }
 
+        //if goblins touches player player loses a health and respwans
+        for(let g of goblins){
+            if(rectsIntersect(player,g) && player.attack && life > 0){
+                gameScene.removeChild(g);
+                g.isAlive = false;
+                increaseScoreBy(5);
+                increaseKillScore(1);
+                player.attack = false;
+            }
+            else if(rectsIntersect(player,g) && !player.attack && life > 0){
+                decreaseLifeBy(1);
+                player.x = Math.random() * (sceneWidth-50) + 25;
+                player.y = Math.random() * (sceneHeight-50) + 25;
+            }
+        }
+
+
+
         //filtering the crystals to fet rids of all that have been collected
         crystals = crystals.filter((c)=>c.isAlive);
-
+        goblins = goblins.filter ((g) => g.isAlive);
         //starting new level
-        if (crystals.length == 0) {
+        if (crystals.length == 0 || goblins.length == 0) {
             levelNum++;
             loadLevel();
+        }
+
+        if(life == 0){
+            end();
         }
 
 }

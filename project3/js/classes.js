@@ -37,24 +37,35 @@ class Crystal extends PIXI.Graphics{
 }
 
 class Goblin extends PIXI.Graphics{
-    constructor(texture,x,y,speed){
-        super(texture);
+    constructor(speed, x = 0, y = 0){
+        super();
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.isalive = true;
-        this.fwd = getRandomUnitVector();
-    }
-    move(dt = 1/60){
-        this.x += this.fwd.x * this.speed * dt;
-        this.y += this.fwd.y * this.speed * dt;
+        this.circle(x,y, 20);
+        this.fill(0x5bf08a);
+        this.isAlive = true;
     }
 
-    reflectX(){
-        this.fwd.x *= -1;
-    }
 
-    reflectY(){
-        this.fwd.y *= -1;
+
+    move(pacX, pacY){
+        let opposite = pacY - this.y;
+        let adjacent = pacX - this.x;
+
+        let angle = Math.atan((opposite/adjacent));
+
+        //incase the angle is negative
+        if(this.x > pacX){
+            angle += 180;
+        }
+
+        let vx = this.speed * Math.cos(angle);
+        let vy = this.speed * Math.sin(angle);
+
+        this.x += vx;
+        this.y += vy;
+
     }
 }
