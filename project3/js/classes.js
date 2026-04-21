@@ -37,7 +37,7 @@ class Crystal extends PIXI.Graphics{
 }
 
 class Goblin extends PIXI.Graphics{
-    constructor(texture,x,y,speed = 100){
+    constructor(texture,x,y,speed){
         super(texture);
         this.x = x;
         this.y = y;
