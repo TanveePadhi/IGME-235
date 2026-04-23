@@ -195,6 +195,7 @@ function createLabels(){
     goblinScoreLabel.x = 150;
     goblinScoreLabel.y = 5;
     gameScene.addChild(goblinScoreLabel);
+    increaseGoblinScoreBy(0);
 
 
     lifeLabel = new PIXI.Text({text: "l", style: scoreText});
