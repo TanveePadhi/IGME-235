@@ -10,8 +10,9 @@ let startScene, gameScene, tutorialScene, gameOverScene;
 let startButton, tutorialButton;
 let startSprite, tutorialSprite;
 let tutorialPressed = false;
-let scoreLabel, lifeLabel, killLabel;
+let scoreLabel, goblinScoreLabel, lifeLabel, killLabel;
 let score = 0;
+let goblinScore = 0;
 let kills = 0
 let life = 3;
 
@@ -146,9 +147,9 @@ function createLabels(){
     text: "GAME TITLE",
     style: {
         fill: 0x0E6752,
-        fontSize: 96,
-        fontFamily: "Copperplate",
-        stroke: {color: 0x98f1dc, width: 8},
+        fontSize: 80,
+        fontFamily: "Uncial Antiqua",
+        stroke: {color: 0xf0bb90, width: 8},
     },
     });
 
@@ -184,6 +185,17 @@ function createLabels(){
     gameScene.addChild(scoreLabel);
     increaseScoreBy(0);
 
+    goblinScoreLabel = new PIXI.Text({text: "gs",
+        style:{
+        fill:0x119955,
+        fontSize: 18,
+        fontFamily: "Copperplate",
+        }
+    });
+    goblinScoreLabel.x = 150;
+    goblinScoreLabel.y = 5;
+    gameScene.addChild(goblinScoreLabel);
+
 
     lifeLabel = new PIXI.Text({text: "l", style: scoreText});
     lifeLabel.x = 5;
@@ -216,12 +228,13 @@ function createLabels(){
 
 function startGame(){
     startScene.visible = false;
-    tutorialScene = false;
+    tutorialScene.visible = false;
     gameOverScene.visible = false;
     gameScene.visible = true;
 
     //initializing all scores
     score = 0;
+    goblinScore = 0;
     kills = 0;
     life = 3;
     levelNum = 1;
@@ -238,6 +251,11 @@ function startGame(){
 function increaseScoreBy(value){
     score += value;
     scoreLabel.text = `Score:   ${score}`;
+}
+
+function increaseGoblinScoreBy(value){
+    goblinScore += value;
+    goblinScoreLabel.text = `Goblin Score:   ${goblinScore}`;
 }
 
 function increaseKillScore(value){
@@ -284,10 +302,10 @@ function loadLevel(){
     console.log(levelNum);
     createCystals( levelNum * 15);
     //resets goblins per level
-    for(let g in goblins){
+    for(let g of goblins){
         gameScene.removeChild(g);
+        goblins.pop();
     }
-    goblins.length = 0
     createGoblins(levelNum);
     
 
@@ -352,6 +370,7 @@ function gameLoop(){
 
         //collision detection
         for(let c of crystals){
+            //checks if the player colelcted special crystal that can allow them attack 
             if(c.special && c.isAlive && rectsIntersect(player, c)){
                 gameScene.removeChild(c);
                 c.isAlive = false;
@@ -359,11 +378,21 @@ function gameLoop(){
                 break;
 
             }
+            //checks if the player is just collecting crstals
             else if(c.isAlive && rectsIntersect(player, c)){
                 gameScene.removeChild(c);
                 c.isAlive = false;
                 increaseScoreBy(1);
                 break;
+            }
+            //checks if the goblin collects the crystal
+            for(let g of goblins){
+                if(c.isAlive && rectsIntersect(g, c) && !c.special){
+                    gameScene.removeChild(c);
+                    c.isAlive = false;
+                    increaseGoblinScoreBy(1);
+                    break;
+                }
             }
         }
 

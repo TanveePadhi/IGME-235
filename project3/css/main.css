@@ -8,7 +8,6 @@
     font-weight: 400;
     font-style: normal;
     border-style: border-box;
-
     overflow: hidden;
 
 }
@@ -18,8 +17,7 @@
     color:#1ba683;
     grid-area: header;
     height: 5vh;
-    padding: 20px;
-
+    padding: 50px;
     text-align: center;
 }
 h1{
@@ -40,11 +38,12 @@ h1{
     margin: 5px;
     height: 5vh;
     width: 90%;
+    height: fit-content;
     color:#f27961;
     background-color: #343473;
     border-bottom: 4px solid #7497a6;
     border-right: 5px solid #a3ccd9 ;
-
+    overflow:visible;
 
 }
 
@@ -58,17 +57,30 @@ h1{
 
 }
 
+#footer{
+    height: 5vh;
+    padding: 20px;
+    text-align: center;
+    grid-area: footer;
+    color:#1ba683;
+    margin: 5px;
+}
+
+#footer p{
+    margin: 10px;
+}
+
 body{
     height: 100vh;
     width: 100vw;
     display:grid;
 
     grid-template-columns: 2fr 10fr;
-    grid-template-rows: 1fr 11fr;
+    grid-template-rows: 1fr 10fr 1fr;
 
     grid-template-areas: "header header"
                         "navbar game"
-                        "navbar game";
+                        "footer footer";
     
     background-color: rgb(0, 0, 0);
 }
