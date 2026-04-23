@@ -7,7 +7,7 @@ let gamepanel = document.querySelector("#game-panel");
 let stage;
 let sceneWidth, sceneHeight;
 let startScene, gameScene, tutorialScene, gameOverScene;
-let startButton, tutorialButton;
+let startButton, tutorialButton, playAgainButton;
 let startSprite, tutorialSprite;
 let tutorialPressed = false;
 let scoreLabel, goblinScoreLabel, lifeLabel, killLabel;
@@ -115,6 +115,8 @@ async function setup(){
     gameOverScene.visible = false;
     stage.addChild(gameOverScene);
 
+    //play agian button
+
     createLabels();
 
     //button functionalities
@@ -142,28 +144,29 @@ async function setup(){
 
 function createLabels(){
 
-    //home page title
+    //home page text
     let startTitle = new PIXI.Text({
-    text: "GAME TITLE",
+    text: "Escape Goblinland",
     style: {
         fill: 0x0E6752,
-        fontSize: 80,
+        fontSize: 60,
         fontFamily: "Uncial Antiqua",
-        stroke: {color: 0xf0bb90, width: 8},
+        stroke: {color: 0xf0bb90, width: 6},
     },
     });
 
-    startTitle.x = 50;
+    startTitle.x = 40;
     startTitle.y = 30;
     startScene.addChild(startTitle);
 
+    //tutorial title
     let tutorialText = new PIXI.Text({
     text: "TUTORIAL",
     style: {
     fill: 0x0E6752,
     fontSize: 40,
-    fontFamily: "Copperplate",
-    stroke: {color: 0x98f1dc, width: 4},
+    fontFamily: "Uncial Antiqua",
+    stroke: {color: 0xf0bb90, width: 4},
     },
     });
 
@@ -171,6 +174,131 @@ function createLabels(){
     tutorialText.y = 150;
     
     tutorialScene.addChild(tutorialText);
+
+    // arrow buttons and crystals for tutorial
+    let up = new PIXI.Graphics();
+    up.rect(500,210,30,30).fill(0x96e3c9);
+    tutorialScene.addChild(up);
+
+    let down = new PIXI.Graphics();
+    up.rect(500,245,30,30).fill(0x96e3c9);
+    tutorialScene.addChild(down);
+
+    let left = new PIXI.Graphics();
+    up.rect(465,245,30,30).fill(0x96e3c9);
+    tutorialScene.addChild(left);
+
+    let right = new PIXI.Graphics();
+    up.rect(535,245,30,30).fill(0x96e3c9);
+    tutorialScene.addChild(right);
+
+    let normCryst = new PIXI.Graphics();
+    up.rect(465,300,5,10).fill(0xc2fffd);
+    tutorialScene.addChild(normCryst);
+
+    let specCryst = new PIXI.Graphics();
+    up.rect(465,350,5,10).fill(0xffba0f);
+    tutorialScene.addChild(specCryst);
+
+    //arrow text for tutorial
+
+    let upArr = new PIXI.Text({
+        text: "↑",
+        style: {
+        fill: 0x0E6752,
+        fontSize: 20,
+        fontFamily: "Uncial Antiqua",
+    },
+    })
+
+    upArr.x = 509;
+    upArr.y = 210;
+
+    tutorialScene.addChild(upArr);
+
+    let downArr = new PIXI.Text({
+        text: "↓",
+        style: {
+        fill: 0x0E6752,
+        fontSize: 20,
+        fontFamily: "Uncial Antiqua",
+    },
+    })
+
+    downArr.x = 509;
+    downArr.y = 245;
+
+    tutorialScene.addChild(downArr);
+
+    let lftArr = new PIXI.Text({
+        text: "←",
+        style: {
+        fill: 0x0E6752,
+        fontSize: 20,
+        fontFamily: "Uncial Antiqua",
+    },
+    })
+
+    lftArr.x = 470;
+    lftArr.y = 245;
+
+    tutorialScene.addChild(lftArr);
+
+    let rtArr = new PIXI.Text({
+        text: "→",
+        style: {
+        fill: 0x0E6752,
+        fontSize: 20,
+        fontFamily: "Uncial Antiqua",
+    },
+    })
+
+    rtArr.x = 540;
+    rtArr.y = 245;
+
+    tutorialScene.addChild(rtArr);
+
+    let instructions = new PIXI.Text({
+        text: "Click any of\nthe arrow \nbuttons to\nmove",
+        style: {
+        fill: 0xf0bb90,
+        fontSize: 14,
+        fontFamily: "Uncial Antiqua",
+    },
+    })
+
+    instructions.x = 580;
+    instructions.y = 210;
+
+    tutorialScene.addChild(instructions);
+
+    let nCrystInfo = new PIXI.Text({
+        text: "Collect for 1 point",
+        style: {
+        fill: 0xf0bb90,
+        fontSize: 14,
+        fontFamily: "Uncial Antiqua",
+    },
+    })
+
+    nCrystInfo.x = 485;
+    nCrystInfo.y = 295;
+
+    tutorialScene.addChild(nCrystInfo);
+
+    let sCrystInfo = new PIXI.Text({
+        text: "Collect to attack goblins\nYou only get one chance.",
+        style: {
+        fill: 0xf0bb90,
+        fontSize: 14,
+        fontFamily: "Uncial Antiqua",
+    },
+    })
+
+    sCrystInfo.x = 485;
+    sCrystInfo.y = 345;
+
+    tutorialScene.addChild(sCrystInfo);
 
     //game scene text
     let scoreText = {
@@ -224,6 +352,27 @@ function createLabels(){
     gameOverText.x = 50;
     gameOverText.y = 30;
     gameOverScene.addChild(gameOverText);
+
+    //need to make it a sprite TTTTTT
+/*
+    let playAgain = new PIXI.Graphics().rect((sceneWidth/2)-85, sceneHeight/2,170,75).fill(0x17735f);
+    let playAgainBack = new PIXI.Graphics().rect((sceneWidth/2)-85, sceneHeight/2,175,85).fill(0xf0bb90);
+    gameOverScene.addChild(playAgainBack);
+    gameOverScene.addChild(playAgain);
+
+    let playAgainText = new PIXI.Text({
+    text: "Play Again?",
+    style: {
+        fill: 0x96e3c9,
+        fontSize: 25,
+        fontFamily: "Copperplate",
+
+    },
+    });
+
+    playAgainText.x = (sceneWidth/2)-60;
+    playAgainText.y = (sceneHeight/2) + 20;
+    gameOverScene.addChild(playAgainText); */
 
 }
 
@@ -281,6 +430,7 @@ function createGoblins(num){
 }
 
 function createCystals(num = 15){
+    //normal crystals
     for(let i = 0; i < num; i++){
         let c = new Crystal(0xc2fffd);
         c.x = Math.random() * (sceneWidth-50) + 25;
@@ -289,6 +439,7 @@ function createCystals(num = 15){
         gameScene.addChild(c);
     }
 
+    //special crystals
     for(let j = 0; j < levelNum; j++){
         let s = new Crystal(0xffba0f);
         s.special = true;
