@@ -14,7 +14,6 @@ class Player extends PIXI.Graphics {
     this.dy = 0; // per second
     this.lives = 3;
     this.attack = false;
-   // this.hitBox = rect(x,y,x+radius, y+radius);
     }
 
     update(dt) {
@@ -38,7 +37,7 @@ class Crystal extends PIXI.Graphics{
 }
 
 class Goblin extends PIXI.Graphics{
-    constructor(speed, x = 0, y = 0){
+    constructor(speed, x = 0, y = 0, radius = 20){
         super();
         this.x = x;
         this.y = y;
@@ -47,8 +46,7 @@ class Goblin extends PIXI.Graphics{
         this.circle(x,y, 20);
         this.fill(0x5bf08a);
         this.isAlive = true;
-
-       // this.hitBox = rect(x,y,x+20, y+20);
+        this.radius = radius;
     }
 
 
@@ -71,4 +69,6 @@ class Goblin extends PIXI.Graphics{
         this.y += vy;
 
     }
+
+
 }

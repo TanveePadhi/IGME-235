@@ -8,9 +8,9 @@ let stage;
 let sceneWidth, sceneHeight;
 let startScene, gameScene, tutorialScene, gameOverScene;
 let startButton, tutorialButton, playAgainButton;
-let startSprite, tutorialSprite;
+let startSprite, tutorialSprite, playAgainSprite;
 let tutorialPressed = false;
-let scoreLabel, goblinScoreLabel, lifeLabel, killLabel;
+let scoreLabel, goblinScoreLabel, lifeLabel, killLabel, gameOverScoreLabel;
 let score = 0;
 let goblinScore = 0;
 let kills = 0
@@ -60,7 +60,7 @@ async function setup(){
 
     //adding functionality to button press
     startButton.on("pointerup",() => {
-        console.log("clicked");
+        //console.log("clicked");
         startGame();
     })
 
@@ -116,6 +116,29 @@ async function setup(){
     stage.addChild(gameOverScene);
 
     //play agian button
+    playAgainSprite = await PIXI.Assets.load("images/play-again-button-pixel.png");
+    playAgainButton = new PIXI.Sprite(playAgainSprite);
+
+    playAgainButton.scale.set(0.3);
+    playAgainButton.anchor.set(0.5);
+
+    playAgainButton.x = 350;
+    playAgainButton.y = 260;
+
+    playAgainButton.interactive = true;
+    playAgainButton.cursor = "pointer";
+
+    playAgainButton.on("pointerover", (e) =>{
+        e.target.tint = 0xbbbbbb;
+    })
+
+    playAgainButton.on("pointerout", (e) =>{
+        e.target.tint = 0xffffff;
+    })
+
+    playAgainButton.on("pointerup", startGame);
+
+    gameOverScene.addChild(playAgainButton)
 
     createLabels();
 
@@ -127,7 +150,7 @@ async function setup(){
         else{
             tutorialPressed = true;
         }
-        console.log(tutorialPressed);
+        //console.log(tutorialPressed);
 
         tutorialScene.visible = tutorialPressed;
 
@@ -346,33 +369,26 @@ function createLabels(){
         fontSize: 96,
         fontFamily: "Copperplate",
         stroke: {color: 0x98f1dc, width: 8},
-    },
+    }
     });
 
     gameOverText.x = 50;
     gameOverText.y = 30;
     gameOverScene.addChild(gameOverText);
 
-    //need to make it a sprite TTTTTT
-/*
-    let playAgain = new PIXI.Graphics().rect((sceneWidth/2)-85, sceneHeight/2,170,75).fill(0x17735f);
-    let playAgainBack = new PIXI.Graphics().rect((sceneWidth/2)-85, sceneHeight/2,175,85).fill(0xf0bb90);
-    gameOverScene.addChild(playAgainBack);
-    gameOverScene.addChild(playAgain);
-
-    let playAgainText = new PIXI.Text({
-    text: "Play Again?",
-    style: {
-        fill: 0x96e3c9,
-        fontSize: 25,
+    gameOverScoreLabel = new PIXI.Text({
+        text: "",
+        style: {
+        fill: 0x0E6752,
+        fontSize: 50,
         fontFamily: "Copperplate",
-
-    },
+        stroke: {color: 0x98f1dc, width: 4},
+    }
     });
 
-    playAgainText.x = (sceneWidth/2)-60;
-    playAgainText.y = (sceneHeight/2) + 20;
-    gameOverScene.addChild(playAgainText); */
+    gameOverScoreLabel.x = 150;
+    gameOverScoreLabel.y = 150;
+    gameOverScene.addChild(gameOverScoreLabel);
 
 }
 
@@ -382,7 +398,7 @@ function startGame(){
     gameOverScene.visible = false;
     gameScene.visible = true;
 
-    //initializing all scores
+    //re initializing all scores
     score = 0;
     goblinScore = 0;
     kills = 0;
@@ -390,6 +406,12 @@ function startGame(){
     levelNum = 1;
     player.x = 100;
     player.y = 50;
+
+    //resets all scores
+    increaseScoreBy(0);
+    decreaseLifeBy(0);
+    increaseKillScore(0);
+    increaseGoblinScoreBy(0);
 
     //load the level or map
     loadLevel();
@@ -421,7 +443,7 @@ function decreaseLifeBy(value){
 
 function createGoblins(num){
     for(let i = 0; i < num; i++){
-        let g = new Goblin(2);
+        let g = new Goblin(1.5);
         g.x = Math.random() * (sceneWidth-50) + 25;
         g.y = Math.random() * (sceneHeight-50) + 25;
         goblins.push(g);
@@ -451,7 +473,7 @@ function createCystals(num = 15){
 }
 
 function loadLevel(){
-    console.log(levelNum);
+    //console.log(levelNum);
     createCystals( levelNum * 15);
     //resets goblins per level
     for(let g of goblins){
@@ -468,7 +490,35 @@ function rectsIntersect(a,b){
 		return ab.x + ab.width > bb.x && ab.x < bb.x + bb.width && ab.y + ab.height > bb.y && ab.y < bb.y + bb.height;
 	}
 
+function collision(a,b){
+    //console.log(a.x);
+    //console.log(b.x);
+        let x = Math.pow((a?.x - b?.x),2);
+       // console.log(x);
+        let y = Math.pow((a?.y - b?.y),2);
+       // console.log(y);
+        let dist = x + y;
+        //console.log(dist);
+        let rDist = Math.pow((a?.radius + b?.radius),2);
+        console.log(dist <= rDist);
+
+        return dist <= rDist;
+    }
+
 function end(){
+    paused = true;
+
+    gameOverScoreLabel.text = `Final Score: ${score}`;
+
+    //resettings all goblins
+    goblins.forEach((g) => gameScene.removeChild(g));
+    goblins = [];
+
+    crystals.forEach((c) => gameScene.removeChild(c));
+    crystals = [];
+
+    app.canvas.onclick = null;
+
     gameOverScene.visible = true;
     gameScene.visible = false;
 }
@@ -501,20 +551,31 @@ function gameLoop(){
         //goblin movement
         for(let g of goblins){
             g.move(player.x, player.y);
+            if(g.x <= 0 ){
+                g.x = 0;
+            }
+            if(g.x >= sceneWidth){
+                g.x = sceneWidth - 20;
+            }
+            if(g.y <= 0){
+                g.y = 0;
+            }
+            if(g.y >= sceneHeight){
+                g.y = sceneHeight- 20;
+            }
+            
         }
 
-        //keeping the player inside the box
-        let w2 = player.width/2;
-        let h2 = player.height/2;
+        //keeping the player inside the box but can move from sides to side (teleporting)
 
         if(player.x <= 0 ){
-            player.x = sceneWidth - w2;
+            player.x = sceneWidth - 1;
         }
         if(player.x >= sceneWidth){
             player.x = 0;
         }
         if(player.y <= 0){
-            player.y = sceneHeight - h2;
+            player.y = sceneHeight - 1;
         }
         if(player.y >= sceneHeight){
             player.y = 0;
@@ -561,6 +622,23 @@ function gameLoop(){
                 decreaseLifeBy(1);
                 player.x = Math.random() * (sceneWidth-50) + 25;
                 player.y = Math.random() * (sceneHeight-50) + 25;
+            }
+        }
+        
+
+        //when goblins collide with each other
+        for(let g = 0; g < goblins.length; g++){
+            if(goblins.length == 1 && g == (goblins.length-1)){
+                break;
+            }
+
+            if(collision(goblins[g],goblins[g+1])){
+
+                goblins[g].x = Math.random() * (sceneWidth-50) + 25;
+                goblins[g].y = Math.random() * (sceneHeight-50) + 25;
+
+                goblins[g+1].x = Math.random() * (sceneWidth-50) + 25;
+                goblins[g+1].y = Math.random() * (sceneHeight-50) + 25;
             }
         }
 
