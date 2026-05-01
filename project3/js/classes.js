@@ -6,6 +6,7 @@ class Player extends PIXI.Graphics {
     this.x = x;
     this.y = y;
     this.speed = speed;
+    this.color = color;
     this.circle(0, 0, radius);
     this.fill(color);
 
@@ -70,5 +71,15 @@ class Goblin extends PIXI.Graphics{
 
     }
 
+    collison(a,b){
+        let x = Math.pow((a.x - b.x),2);
 
+        let y = Math.pow((a.y - b.y),2);
+
+        let dist = x + y;
+
+        let rDist = Math.pow((a.radius + b.radius),2);
+
+        return dist <= rDist;
+    }
 }

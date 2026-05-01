@@ -10,7 +10,7 @@ let startScene, gameScene, tutorialScene, gameOverScene;
 let startButton, tutorialButton, playAgainButton;
 let startSprite, tutorialSprite, playAgainSprite;
 let tutorialPressed = false;
-let scoreLabel, goblinScoreLabel, lifeLabel, killLabel, gameOverScoreLabel;
+let scoreLabel, goblinScoreLabel, lifeLabel, killLabel, gameOverScoreLabel, gameSceneLabel;
 let score = 0;
 let goblinScore = 0;
 let kills = 0
@@ -51,7 +51,7 @@ async function setup(){
     //anchor poiint
     startButton.anchor.set(0.5);
     //location
-    startButton.x = 350;
+    startButton.x = sceneWidth/2;
     startButton.y = 260;
 
     //allowing interactions
@@ -83,7 +83,7 @@ async function setup(){
     //button properties being set
     tutorialButton.scale.set(0.3);
     tutorialButton.anchor.set(0.5);
-    tutorialButton.x = 330;
+    tutorialButton.x = sceneWidth/2;
     tutorialButton.y = 400;
 
     //allowin interactions
@@ -122,8 +122,8 @@ async function setup(){
     playAgainButton.scale.set(0.3);
     playAgainButton.anchor.set(0.5);
 
-    playAgainButton.x = 350;
-    playAgainButton.y = 260;
+    playAgainButton.x = sceneWidth/2;
+    playAgainButton.y = 350;
 
     playAgainButton.interactive = true;
     playAgainButton.cursor = "pointer";
@@ -178,8 +178,9 @@ function createLabels(){
     },
     });
 
-    startTitle.x = 40;
-    startTitle.y = 30;
+    startTitle.anchor.set(0.5);
+    startTitle.x = sceneWidth/2;
+    startTitle.y = 100;
     startScene.addChild(startTitle);
 
     //tutorial title
@@ -324,19 +325,21 @@ function createLabels(){
     tutorialScene.addChild(sCrystInfo);
 
     //game scene text
+    let textSpace = new PIXI.Graphics().rect(0,0,sceneWidth, 75).fill(0x4f4f51);
+    gameScene.addChild(textSpace);
     let scoreText = {
         fill: 0xd49bfa,
         fontSize: 18,
         fontFamily: "Copperplate",
     };
 
-    scoreLabel = new PIXI.Text({text: "s", style:scoreText});
+    scoreLabel = new PIXI.Text({text: "", style:scoreText});
     scoreLabel.x = 5;
     scoreLabel.y = 5;
     gameScene.addChild(scoreLabel);
     increaseScoreBy(0);
 
-    goblinScoreLabel = new PIXI.Text({text: "gs",
+    goblinScoreLabel = new PIXI.Text({text: "",
         style:{
         fill:0x119955,
         fontSize: 18,
@@ -349,17 +352,32 @@ function createLabels(){
     increaseGoblinScoreBy(0);
 
 
-    lifeLabel = new PIXI.Text({text: "l", style: scoreText});
+    lifeLabel = new PIXI.Text({text: "", style: scoreText});
     lifeLabel.x = 5;
     lifeLabel.y = 26;
     gameScene.addChild(lifeLabel);
     decreaseLifeBy(0);
 
-    killLabel = new PIXI.Text({text: "k", style: scoreText});
+    killLabel = new PIXI.Text({text: "", style: scoreText});
     killLabel.x = 5;
     killLabel.y = 50;
     gameScene.addChild(killLabel);
     increaseKillScore(0);
+
+    gameSceneLabel = new PIXI.Text({
+        text: "Defeat all Goblins to move on",
+        style: {
+            fill: 0xf0bb90,
+            fontSize: 30,
+            fontFamily: "Uncial Antiqua",
+        }
+    })
+
+    gameSceneLabel.anchor.set(0.5);
+    gameSceneLabel.x = sceneWidth/2 + 50;
+    gameSceneLabel.y = 50;
+
+    gameScene.addChild(gameSceneLabel);
 
     //gameover scene text
     let gameOverText = new PIXI.Text({
@@ -367,27 +385,31 @@ function createLabels(){
     style: {
         fill: 0x0E6752,
         fontSize: 96,
-        fontFamily: "Copperplate",
-        stroke: {color: 0x98f1dc, width: 8},
+        fontFamily: "Uncial Antiqua",
+        stroke: {color: 0xf0bb90, width: 8},
     }
     });
 
-    gameOverText.x = 50;
-    gameOverText.y = 30;
+    gameOverText.anchor.set(0.5);
+
+    gameOverText.x = sceneWidth/2;
+    gameOverText.y = 100;
     gameOverScene.addChild(gameOverText);
 
     gameOverScoreLabel = new PIXI.Text({
         text: "",
         style: {
         fill: 0x0E6752,
-        fontSize: 50,
-        fontFamily: "Copperplate",
-        stroke: {color: 0x98f1dc, width: 4},
+        fontSize: 45,
+        fontFamily: "Uncial Antiqua",
+        stroke: {color: 0xf0bb90, width: 3},
     }
     });
 
-    gameOverScoreLabel.x = 150;
-    gameOverScoreLabel.y = 150;
+    gameOverScoreLabel.anchor.set(0.5);
+
+    gameOverScoreLabel.x = sceneWidth/2;
+    gameOverScoreLabel.y = 200;
     gameOverScene.addChild(gameOverScoreLabel);
 
 }
@@ -405,7 +427,7 @@ function startGame(){
     life = 3;
     levelNum = 1;
     player.x = 100;
-    player.y = 50;
+    player.y = 150;
 
     //resets all scores
     increaseScoreBy(0);
@@ -445,7 +467,7 @@ function createGoblins(num){
     for(let i = 0; i < num; i++){
         let g = new Goblin(1.5);
         g.x = Math.random() * (sceneWidth-50) + 25;
-        g.y = Math.random() * (sceneHeight-50) + 25;
+        g.y = Math.random() * (sceneHeight-50) + 100;
         goblins.push(g);
         gameScene.addChild(g);
     }
@@ -456,7 +478,7 @@ function createCystals(num = 15){
     for(let i = 0; i < num; i++){
         let c = new Crystal(0xc2fffd);
         c.x = Math.random() * (sceneWidth-50) + 25;
-        c.y = Math.random() * (sceneHeight-50) + 25;
+        c.y = 100 + Math.random() * (sceneHeight-100);
         crystals.push(c);
         gameScene.addChild(c);
     }
@@ -466,7 +488,7 @@ function createCystals(num = 15){
         let s = new Crystal(0xffba0f);
         s.special = true;
         s.x = Math.random() * (sceneWidth-50) + 25;
-        s.y = Math.random() * (sceneHeight-50) + 25;
+        s.y = 100 + Math.random() * (sceneHeight-100);
         crystals.push(s);
         gameScene.addChild(s);
     }
@@ -491,16 +513,11 @@ function rectsIntersect(a,b){
 	}
 
 function collision(a,b){
-    //console.log(a.x);
-    //console.log(b.x);
+
         let x = Math.pow((a?.x - b?.x),2);
-       // console.log(x);
         let y = Math.pow((a?.y - b?.y),2);
-       // console.log(y);
         let dist = x + y;
-        //console.log(dist);
         let rDist = Math.pow((a?.radius + b?.radius),2);
-        console.log(dist <= rDist);
 
         return dist <= rDist;
     }
@@ -557,11 +574,11 @@ function gameLoop(){
             if(g.x >= sceneWidth){
                 g.x = sceneWidth - 20;
             }
-            if(g.y <= 0){
-                g.y = 0;
+            if(g.y <= 100){
+                g.y = 100;
             }
             if(g.y >= sceneHeight){
-                g.y = sceneHeight- 20;
+                g.y = sceneHeight- 120;
             }
             
         }
@@ -574,11 +591,11 @@ function gameLoop(){
         if(player.x >= sceneWidth){
             player.x = 0;
         }
-        if(player.y <= 0){
+        if(player.y <= 100){
             player.y = sceneHeight - 1;
         }
         if(player.y >= sceneHeight){
-            player.y = 0;
+            player.y = 100;
         }
 
         //collision detection
@@ -635,20 +652,29 @@ function gameLoop(){
             if(collision(goblins[g],goblins[g+1])){
 
                 goblins[g].x = Math.random() * (sceneWidth-50) + 25;
-                goblins[g].y = Math.random() * (sceneHeight-50) + 25;
+                goblins[g].y = Math.random() * (sceneHeight-50) + 120;
 
                 goblins[g+1].x = Math.random() * (sceneWidth-50) + 25;
-                goblins[g+1].y = Math.random() * (sceneHeight-50) + 25;
+                goblins[g+1].y = Math.random() * (sceneHeight-50) + 120;
             }
+
         }
-
-
 
         //filtering the crystals to fet rids of all that have been collected
         crystals = crystals.filter((c)=>c.isAlive);
         goblins = goblins.filter ((g) => g.isAlive);
+
+
+    //checkin if the player can attack
+    if(player.attack){
+        player.tint = 0xff0000;
+    }
+    else{
+        player.tint = 0xffffff;
+    }
+
         //starting new level
-        if (crystals.length == 0 || goblins.length == 0) {
+        if (goblins.length == 0) {
             levelNum++;
             loadLevel();
         }
