@@ -1,14 +1,16 @@
 
-class Player extends PIXI.Graphics {
-    constructor(radius = 10, color = 0xfa668b, x = 0, y = 0, speed = 100) {
-    super();
+class Player extends PIXI.Sprite {
+    constructor(texture,radius = 10, color = 0xfa668b, x = 0, y = 0, speed = 150) {
+    super(texture);
+    this.anchor.set(0.5,0.5);
+    this.scale.set(0.04);
     this.radius = radius;
     this.x = x;
     this.y = y;
     this.speed = speed;
     this.color = color;
-    this.circle(0, 0, radius);
-    this.fill(color);
+    //this.circle(0, 0, radius);
+    //this.fill(color);
 
     // other properties
     this.dx = 0; // per second
@@ -37,15 +39,17 @@ class Crystal extends PIXI.Graphics{
     }
 }
 
-class Goblin extends PIXI.Graphics{
-    constructor(speed, x = 0, y = 0, radius = 20){
-        super();
+class Goblin extends PIXI.Sprite{
+    constructor(texture,speed, x = 0, y = 0, radius = 20){
+        super(texture);
+        this.anchor.set(0.5,0.5);
+        this.scale.set(0.15);
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.isalive = true;
-        this.circle(x,y, 20);
-        this.fill(0x5bf08a);
+       // this.circle(x,y, 20);
+       // this.fill(0x5bf08a);
         this.isAlive = true;
         this.radius = radius;
     }

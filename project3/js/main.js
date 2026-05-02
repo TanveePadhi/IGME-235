@@ -5,10 +5,11 @@ const app = new PIXI.Application();
 //game screnen location
 let gamepanel = document.querySelector("#game-panel");
 let stage;
+let assets;
 let sceneWidth, sceneHeight;
 let startScene, gameScene, tutorialScene, gameOverScene;
 let startButton, tutorialButton, playAgainButton;
-let startSprite, tutorialSprite, playAgainSprite;
+let startSprite, tutorialSprite, playAgainSprite, playerSprite, goblinSprite;
 let tutorialPressed = false;
 let scoreLabel, goblinScoreLabel, lifeLabel, killLabel, gameOverScoreLabel, gameSceneLabel;
 let score = 0;
@@ -19,6 +20,8 @@ let life = 3;
 let paused =true;
 
 let player;
+let tp;
+let playerTexture = [];
 let crystals = [];
 let goblins = [];
 
@@ -30,6 +33,7 @@ setup();
 //async can be initialized after it's call
 async function setup(){
 
+    //setting up the window for the game
     await app.init({width:700, height:550, background:"#000000"});
     gamepanel.appendChild(app.canvas);
 
@@ -116,7 +120,7 @@ async function setup(){
     stage.addChild(gameOverScene);
 
     //play agian button
-    playAgainSprite = await PIXI.Assets.load("images/play-again-button-pixel.png");
+    playAgainSprite = await PIXI.Assets.load("images/playAgain.png");
     playAgainButton = new PIXI.Sprite(playAgainSprite);
 
     playAgainButton.scale.set(0.3);
@@ -155,10 +159,15 @@ async function setup(){
         tutorialScene.visible = tutorialPressed;
 
     })
-
+    playerSprite = await PIXI.Assets.load("images/player.png");
+    goblinSprite = await PIXI.Assets.load("images/goblin.png");
     //creating player
-    player = new Player(20, 0xfa668b,0,0,200);
+    player = new Player(playerSprite);
     gameScene.addChild(player);
+
+
+
+
 
     app.ticker.add(gameLoop);
 
@@ -429,6 +438,7 @@ function startGame(){
     player.x = 100;
     player.y = 150;
 
+
     //resets all scores
     increaseScoreBy(0);
     decreaseLifeBy(0);
@@ -465,7 +475,7 @@ function decreaseLifeBy(value){
 
 function createGoblins(num){
     for(let i = 0; i < num; i++){
-        let g = new Goblin(1.5);
+        let g = new Goblin(goblinSprite,1.5);
         g.x = Math.random() * (sceneWidth-50) + 25;
         g.y = Math.random() * (sceneHeight-50) + 100;
         goblins.push(g);
@@ -637,8 +647,8 @@ function gameLoop(){
             }
             else if(rectsIntersect(player,g) && !player.attack && life > 0){
                 decreaseLifeBy(1);
-                player.x = Math.random() * (sceneWidth-50) + 25;
-                player.y = Math.random() * (sceneHeight-50) + 25;
+                player.x = 100;
+                player.y = 150;
             }
         }
         

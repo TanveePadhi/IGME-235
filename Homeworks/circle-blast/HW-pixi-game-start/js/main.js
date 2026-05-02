@@ -37,7 +37,7 @@ async function loadImages() {
 
   // The second argument is a callback function that is called whenever the loader makes progress.
     assets = await PIXI.Assets.loadBundle("sprites", (progress) => {
-    console.log(`progress=${(progress * 100).toFixed(2)}%`); // 0.4288 => 42.88%
+    //console.log(`progress=${(progress * 100).toFixed(2)}%`); // 0.4288 => 42.88%
     });
 
     setup();
