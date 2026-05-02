@@ -7,11 +7,11 @@ let gamepanel = document.querySelector("#game-panel");
 let stage;
 let assets;
 let sceneWidth, sceneHeight;
-let startScene, gameScene, tutorialScene, gameOverScene;
+let startScene, gameScene, tutorialScene, gameOverScene, winScene;
 let startButton, tutorialButton, playAgainButton;
 let startSprite, tutorialSprite, playAgainSprite, playerSprite, goblinSprite;
 let tutorialPressed = false;
-let scoreLabel, goblinScoreLabel, lifeLabel, killLabel, gameOverScoreLabel, gameSceneLabel;
+let scoreLabel, goblinScoreLabel, lifeLabel, killLabel, gameOverScoreLabel, gameSceneLabel, winSceneLabel;
 let score = 0;
 let goblinScore = 0;
 let kills = 0
@@ -144,6 +144,10 @@ async function setup(){
 
     gameOverScene.addChild(playAgainButton)
 
+    winScene = new PIXI.Container();
+    winScene.visible = false;
+    stage.addChild(winScene);
+
     createLabels();
 
     //button functionalities
@@ -165,12 +169,7 @@ async function setup(){
     player = new Player(playerSprite);
     gameScene.addChild(player);
 
-
-
-
-
     app.ticker.add(gameLoop);
-
 
 }
 
@@ -421,6 +420,22 @@ function createLabels(){
     gameOverScoreLabel.y = 200;
     gameOverScene.addChild(gameOverScoreLabel);
 
+    winSceneLabel = new PIXI.Text({
+    text: "YOU ESCAPED!!",
+    style: {
+        fill: 0x0E6752,
+        fontSize: 75,
+        fontFamily: "Uncial Antiqua",
+        stroke: {color: 0xf0bb90, width: 8},
+    }
+    });
+
+    winSceneLabel.anchor.set(0.5);
+
+    winSceneLabel.x = sceneWidth/2;
+    winSceneLabel.y = 100;
+    winScene.addChild(winSceneLabel);
+
 }
 
 function startGame(){
@@ -548,6 +563,25 @@ function end(){
 
     gameOverScene.visible = true;
     gameScene.visible = false;
+}
+
+function win(){
+    paused = true;
+
+
+
+     //resettings all goblins
+    goblins.forEach((g) => gameScene.removeChild(g));
+    goblins = [];
+
+    crystals.forEach((c) => gameScene.removeChild(c));
+    crystals = [];
+
+    winScene.visible = true;
+    gameOverScene.visible = false;
+    gameScene.visible = false;
+    tutorialScene.visible = false;
+    startScene.visible = false;
 }
 function gameLoop(){
     if (paused) return;
@@ -691,6 +725,10 @@ function gameLoop(){
 
         if(life == 0){
             end();
+        }
+
+        if(score >= 100){
+            win();
         }
 
 }
