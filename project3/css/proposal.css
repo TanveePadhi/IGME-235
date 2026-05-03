@@ -59,3 +59,28 @@ hr{
     display: flex;
     padding: 20px;
 }
+
+#navbar{
+    height: 100%;
+    grid-area: navbar;
+    color:#f27961;
+
+    display:flex;
+    justify-content: center;
+}
+
+#navbar div button{
+    padding: 10px;
+    margin: 5px;
+    height: 5vh;
+    color:#f27961;
+    background-color: #343473;
+    border-bottom: 4px solid #7497a6;
+    border-right: 5px solid #a3ccd9 ;
+
+
+}
+
+#proposal{
+    visibility: hidden;
+}
