@@ -9,6 +9,7 @@ let sceneWidth, sceneHeight;
 let startScene, gameScene, tutorialScene, gameOverScene, winScene;
 let startButton, tutorialButton, playAgainButton, playAgainButtonWin;
 let startSprite, tutorialSprite, playAgainSprite, playerSprite, goblinSprite;
+let crystalSound, backgroundSound, goblinDeathSound;
 let tutorialPressed = false;
 let scoreLabel, goblinScoreLabel, lifeLabel, killLabel, gameOverScoreLabel, gameSceneLabel, winSceneLabel;
 let score = 0;
@@ -164,6 +165,20 @@ async function setup(){
     playAgainButtonWin.on("pointerup", (home));
 
     winScene.addChild(playAgainButtonWin);
+
+    //loading in all audio
+
+    backgroundSound = new Howl({
+        src: ["audio/background.mp3"],
+    });
+
+    crystalSound = new Howl({
+        src: ["audio/crystal.mp3"],
+    });
+
+    goblinDeathSound = new Howl({
+        src: ["audio/goblin_hurt.mp3"],
+    });
 
     createLabels();
 
@@ -455,6 +470,7 @@ function createLabels(){
 }
 
 function startGame(){
+    backgroundSound.play();
     startScene.visible = false;
     tutorialScene.visible = false;
     gameOverScene.visible = false;
@@ -584,8 +600,6 @@ function end(){
 function win(){
     paused = true;
 
-
-
      //resettings all goblins
     goblins.forEach((g) => gameScene.removeChild(g));
     goblins = [];
@@ -616,6 +630,8 @@ function home(){
     startScene.visible = true;
 
 }
+    //background music
+    
 function gameLoop(){
     if (paused) return;
 
@@ -679,6 +695,7 @@ function gameLoop(){
         for(let c of crystals){
             //checks if the player colelcted special crystal that can allow them attack 
             if(c.special && c.isAlive && rectsIntersect(player, c)){
+                crystalSound.play();
                 gameScene.removeChild(c);
                 c.isAlive = false;
                 player.attack = true;
@@ -687,6 +704,7 @@ function gameLoop(){
             }
             //checks if the player is just collecting crstals
             else if(c.isAlive && rectsIntersect(player, c)){
+                crystalSound.play();
                 gameScene.removeChild(c);
                 c.isAlive = false;
                 increaseScoreBy(1);
@@ -695,6 +713,7 @@ function gameLoop(){
             //checks if the goblin collects the crystal
             for(let g of goblins){
                 if(c.isAlive && rectsIntersect(g, c) && !c.special){
+                    crystalSound.play();
                     gameScene.removeChild(c);
                     c.isAlive = false;
                     increaseGoblinScoreBy(1);
@@ -706,6 +725,7 @@ function gameLoop(){
         //if goblins touches player player loses a health and respwans
         for(let g of goblins){
             if(rectsIntersect(player,g) && player.attack && life > 0){
+                goblinDeathSound.play();
                 gameScene.removeChild(g);
                 g.isAlive = false;
                 increaseScoreBy(5);
@@ -718,8 +738,7 @@ function gameLoop(){
                 player.y = 150;
             }
         }
-        
-
+    
         //when goblins collide with each other
         for(let g = 0; g < goblins.length; g++){
             if(goblins.length == 1 && g == (goblins.length-1)){

@@ -45,7 +45,7 @@ class Goblin extends PIXI.Sprite{
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.isalive = true;
+       // this.isalive = true;
 
         this.isAlive = true;
         this.radius = radius;
@@ -72,15 +72,4 @@ class Goblin extends PIXI.Sprite{
 
     }
 
-    collison(a,b){
-        let x = Math.pow((a.x - b.x),2);
-
-        let y = Math.pow((a.y - b.y),2);
-
-        let dist = x + y;
-
-        let rDist = Math.pow((a.radius + b.radius),2);
-
-        return dist <= rDist;
-    }
 }
