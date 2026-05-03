@@ -1,3 +1,4 @@
+"use strict";
 const keyboard = Object.freeze({
   SHIFT: 16,
   SPACE: 32,
@@ -5,19 +6,23 @@ const keyboard = Object.freeze({
   UP: 38,
   RIGHT: 39,
   DOWN: 40,
+  W: 87,
+  A: 65,
+  S: 83,
+  D: 68,
 });
 
 // this is the "key daemon" that we poll every frame
 const keys = [];
 
 window.onkeyup = (e) => {
-  //	console.log("keyup=" + e.keyCode);
+  //console.log("keyup=" + e.keyCode);
   keys[e.keyCode] = false;
   e.preventDefault();
 };
 
 window.onkeydown = (e) => {
-  //	console.log("keydown=" + e.keyCode);
+  //console.log("keydown=" + e.keyCode);
   keys[e.keyCode] = true;
 
   // checking for other keys - ex. 'p' and 'P' for pausing

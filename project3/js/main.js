@@ -5,23 +5,20 @@ const app = new PIXI.Application();
 //game screnen location
 let gamepanel = document.querySelector("#game-panel");
 let stage;
-let assets;
 let sceneWidth, sceneHeight;
 let startScene, gameScene, tutorialScene, gameOverScene, winScene;
-let startButton, tutorialButton, playAgainButton;
+let startButton, tutorialButton, playAgainButton, playAgainButtonWin;
 let startSprite, tutorialSprite, playAgainSprite, playerSprite, goblinSprite;
 let tutorialPressed = false;
 let scoreLabel, goblinScoreLabel, lifeLabel, killLabel, gameOverScoreLabel, gameSceneLabel, winSceneLabel;
 let score = 0;
 let goblinScore = 0;
-let kills = 0
+let kills = 0;
 let life = 3;
 
 let paused =true;
 
 let player;
-let tp;
-let playerTexture = [];
 let crystals = [];
 let goblins = [];
 
@@ -64,18 +61,17 @@ async function setup(){
 
     //adding functionality to button press
     startButton.on("pointerup",() => {
-        //console.log("clicked");
         startGame();
-    })
+    });
 
     //tinting the button on hover
     startButton.on("pointerover", (e) =>{
         e.target.tint = 0xbbbbbb;
-    })
+    });
 
     startButton.on("pointerout", (e) =>{
         e.target.tint = 0xffffff;
-    })
+    });
 
     //adding it to the start scene
     startScene.addChild(startButton);
@@ -97,11 +93,11 @@ async function setup(){
     //adding tints with button hover
     tutorialButton.on("pointerover", (e) =>{
         e.target.tint = 0xbbbbbb;
-    })
+    });
 
     tutorialButton.on("pointerout", (e) =>{
         e.target.tint = 0xffffff;
-    })
+    });
 
     startScene.addChild(tutorialButton);
 
@@ -134,19 +130,40 @@ async function setup(){
 
     playAgainButton.on("pointerover", (e) =>{
         e.target.tint = 0xbbbbbb;
-    })
+    });
 
     playAgainButton.on("pointerout", (e) =>{
         e.target.tint = 0xffffff;
-    })
+    });
 
-    playAgainButton.on("pointerup", startGame);
+    playAgainButton.on("pointerup", home);
 
-    gameOverScene.addChild(playAgainButton)
+    gameOverScene.addChild(playAgainButton);
 
     winScene = new PIXI.Container();
     winScene.visible = false;
     stage.addChild(winScene);
+
+    playAgainButtonWin = new PIXI.Sprite(playAgainSprite);
+    playAgainButtonWin.scale.set(0.3);
+    playAgainButtonWin.anchor.set(0.5);
+    playAgainButtonWin.x = sceneWidth/2;
+    playAgainButtonWin.y = 350;
+
+    playAgainButtonWin.interactive = true;
+    playAgainButtonWin.cursor = "pointer";
+
+    playAgainButtonWin.on("pointerover", (e) =>{
+        e.target.tint = 0xbbbbbb;
+    });
+
+    playAgainButtonWin.on("pointerout", (e) =>{
+        e.target.tint = 0xffffff;
+    });
+
+    playAgainButtonWin.on("pointerup", (home));
+
+    winScene.addChild(playAgainButtonWin);
 
     createLabels();
 
@@ -158,11 +175,10 @@ async function setup(){
         else{
             tutorialPressed = true;
         }
-        //console.log(tutorialPressed);
 
         tutorialScene.visible = tutorialPressed;
 
-    })
+    });
     playerSprite = await PIXI.Assets.load("images/player.png");
     goblinSprite = await PIXI.Assets.load("images/goblin.png");
     //creating player
@@ -241,7 +257,7 @@ function createLabels(){
         fontSize: 20,
         fontFamily: "Uncial Antiqua",
     },
-    })
+    });
 
     upArr.x = 509;
     upArr.y = 210;
@@ -255,7 +271,7 @@ function createLabels(){
         fontSize: 20,
         fontFamily: "Uncial Antiqua",
     },
-    })
+    });
 
     downArr.x = 509;
     downArr.y = 245;
@@ -269,7 +285,7 @@ function createLabels(){
         fontSize: 20,
         fontFamily: "Uncial Antiqua",
     },
-    })
+    });
 
     lftArr.x = 470;
     lftArr.y = 245;
@@ -283,7 +299,7 @@ function createLabels(){
         fontSize: 20,
         fontFamily: "Uncial Antiqua",
     },
-    })
+    });
 
     rtArr.x = 540;
     rtArr.y = 245;
@@ -291,13 +307,13 @@ function createLabels(){
     tutorialScene.addChild(rtArr);
 
     let instructions = new PIXI.Text({
-        text: "Click any of\nthe arrow \nbuttons to\nmove",
+        text: "Click any of\nthe arrow \nbuttons to\nmove or WASD",
         style: {
         fill: 0xf0bb90,
         fontSize: 14,
         fontFamily: "Uncial Antiqua",
     },
-    })
+    });
 
     instructions.x = 580;
     instructions.y = 210;
@@ -311,7 +327,7 @@ function createLabels(){
         fontSize: 14,
         fontFamily: "Uncial Antiqua",
     },
-    })
+    });
 
     nCrystInfo.x = 485;
     nCrystInfo.y = 295;
@@ -325,7 +341,7 @@ function createLabels(){
         fontSize: 14,
         fontFamily: "Uncial Antiqua",
     },
-    })
+    });
 
     sCrystInfo.x = 485;
     sCrystInfo.y = 345;
@@ -379,7 +395,7 @@ function createLabels(){
             fontSize: 30,
             fontFamily: "Uncial Antiqua",
         }
-    })
+    });
 
     gameSceneLabel.anchor.set(0.5);
     gameSceneLabel.x = sceneWidth/2 + 50;
@@ -491,7 +507,7 @@ function decreaseLifeBy(value){
 function createGoblins(num){
     for(let i = 0; i < num; i++){
         let g = new Goblin(goblinSprite,1.5);
-        g.x = Math.random() * (sceneWidth-50) + 25;
+        g.x = (sceneWidth/2) + Math.random() * (sceneWidth-50);
         g.y = Math.random() * (sceneHeight-50) + 100;
         goblins.push(g);
         gameScene.addChild(g);
@@ -583,6 +599,23 @@ function win(){
     tutorialScene.visible = false;
     startScene.visible = false;
 }
+
+function home(){
+    paused = true;
+
+    goblins.forEach((g) => gameScene.removeChild(g));
+    goblins = [];
+
+    crystals.forEach((c) => gameScene.removeChild(c));
+    crystals = [];
+
+    winScene.visible = false;
+    gameOverScene.visible = false;
+    gameScene.visible = false;
+    tutorialScene.visible = false;
+    startScene.visible = true;
+
+}
 function gameLoop(){
     if (paused) return;
 
@@ -591,17 +624,17 @@ function gameLoop(){
     if (dt > 1 / 12) dt = 1 / 12;
 
     //player movement
-        if (keys[keyboard.RIGHT]) {
+        if (keys[keyboard.RIGHT] || keys[keyboard.D]) {
             player.dx = player.speed;
-        } else if (keys[keyboard.LEFT]) {
+        } else if (keys[keyboard.LEFT] || keys[keyboard.A]) {
             player.dx = -player.speed;
         } else {
             player.dx = 0;
         }
 
-        if (keys[keyboard.DOWN]) {
+        if (keys[keyboard.DOWN] || keys[keyboard.S]) {
         player.dy = player.speed;
-        } else if (keys[keyboard.UP]) {
+        } else if (keys[keyboard.UP] || keys[keyboard.W]) {
         player.dy = -player.speed;
         } else {
         player.dy = 0;

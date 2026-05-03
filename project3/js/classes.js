@@ -1,4 +1,4 @@
-
+"use strict";
 class Player extends PIXI.Sprite {
     constructor(texture,radius = 10, color = 0xfa668b, x = 0, y = 0, speed = 150) {
     super(texture);
@@ -9,8 +9,6 @@ class Player extends PIXI.Sprite {
     this.y = y;
     this.speed = speed;
     this.color = color;
-    //this.circle(0, 0, radius);
-    //this.fill(color);
 
     // other properties
     this.dx = 0; // per second
@@ -48,8 +46,7 @@ class Goblin extends PIXI.Sprite{
         this.y = y;
         this.speed = speed;
         this.isalive = true;
-       // this.circle(x,y, 20);
-       // this.fill(0x5bf08a);
+
         this.isAlive = true;
         this.radius = radius;
     }

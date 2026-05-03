@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/documentation.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <h1>Project 3 Documentation</h1>
+    <div id="iterations">
 
     <h2>Iteration 1</h2>
     <p>I started the set up of the game just getting the start scene to show. I played arounf with different positioning and since I wanted to use buttons I needed to make the 
@@ -30,8 +37,27 @@
         that impacts game play so whenever you sue up or down arrows it also scrolls the page which is not fun when playing. I fixed that with overflow making it hiden for the entire page and making the 
         divs height 100%. I made the buttons but they do not function I need to add js for them to work.
     </p>
-    <p>I used w3school quite a bit as a reference for some css edits and specifics for buttons. I also refered to this site https://www.101computing.net/pacman-ghost-algorithm/ when I was coding the goblin movement since I wasn't sure
-        if it'd be easier to calculat distance or get the vector.
+    <p>I used w3school quite a bit as a reference for some css edits and specifics for buttons. I also refered to this site 
+        <a href="https://www.101computing.net/pacman-ghost-algorithm/ ">101computing</a>
+        when I was coding the goblin movement since I wasn't sure if it'd be easier to calculate distance or get the vector.
     </p>
+
+    <h2>Iteration 4</h2>
+    <p> I added more collision detection between the goblins since I noticed they overlapped and would look like one entitiy which made it confusing for the player so I made so when the goblins collided they would be randomly 
+        teleported to a different location. I tried making them go he opposite direction as a bounch off action but I wasn't able to reset their speed so it caused some speed errors to occur so I opted out on that idea. I might
+        implemen it later when I figure out the right math to do.
+    </p>
+    <p>I added the images to the player and the goblins as I was running thin on time I just sketched a spiky like blob for the player. I plan to add animations later on since I had some issues with the sprite and creating
+        the animation itself with the sprite. The goblins did not have any animation but I did want to add a death animation maybe in the future.
+    </p>
+    <p>I ended up decided that the win condition should just be collected a 100 crystal points with an infinite number of level as for now. There is no state increase as for nwo but it is something I want to look into for 
+        further development.
+    </p>
+    </div>
+
+    <footer>
+        <p>&copy; Tanvee Padhi 2026</p>
+    </footer>
+
 </body>
 </html>

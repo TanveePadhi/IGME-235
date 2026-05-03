@@ -7,7 +7,6 @@
     font-family: "Eagle Lake", fantasy;
     font-weight: 400;
     font-style: normal;
-    border-style: border-box;
     overflow: hidden;
 
 }
@@ -28,17 +27,17 @@ h1{
 
 #navbar{
     height: 100%;
-
     grid-area: navbar;
     color:#f27961;
+
+    display:flex;
+    justify-content: center;
 }
 
 #navbar div button{
     padding: 10px;
     margin: 5px;
     height: 5vh;
-    width: 90%;
-    height: fit-content;
     color:#f27961;
     background-color: #343473;
     border-bottom: 4px solid #7497a6;
@@ -54,14 +53,13 @@ h1{
     padding: 20px;
 
     grid-area: game;
-    text-align: center;
 
     display:flex;
     flex-direction: column;
     align-items: center;
 }
 
-#game-panel p,h3{
+#game-panel p,h3,h2{
     overflow: visible;
     order:1000;
     text-align: left;
@@ -86,12 +84,12 @@ body{
     width: 100vw;
     display:grid;
 
-    grid-template-columns: 2fr 10fr;
-    grid-template-rows: 1fr 10fr 1fr;
+    grid-template-rows: 1fr 1fr 10fr 1fr;
 
-    grid-template-areas: "header header"
-                        "navbar game"
-                        "footer footer";
+    grid-template-areas: " header"
+                        "navbar"
+                        " game"
+                        " footer";
     
     background-color: black;
 

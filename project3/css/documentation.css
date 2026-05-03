@@ -1,0 +1,40 @@
+*{
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #322430;
+    font-family: "Modern Antiqua", serif;
+}
+footer p{
+    color:#d9b77f;
+    text-align: center;
+
+    padding: 10px;
+}
+h1{
+    text-align: center;
+    line-height: 3em;
+    letter-spacing: 3px;
+    color:#d9b77f;
+}
+
+h2{
+    line-height: 2em;
+    letter-spacing: 2px;
+    color: #536a76;
+}
+
+p{
+    line-height: 1.5em;
+}
+#iterations{
+    width: 70%;
+    background-color: #d4a597;
+
+    padding:20px;
+
+    border: 2px solid #d4a597;
+    border-radius: 20px;
+}
